@@ -2,605 +2,200 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DigiCampus</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #0A1628;
-    --navy2: #122040;
-    --navy3: #1a2f55;
-    --orange: #FF6B1A;
-    --orange2: #ff8c4a;
-    --green: #00C853;
-    --red: #FF3B30;
-    --yellow: #FFD600;
-    --white: #FFFFFF;
-    --gray: #a0aec0;
-    --card: #162035;
-    --card2: #1e2d4a;
-    --text: #e2e8f0;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'Nunito', sans-serif; background: var(--navy); color: var(--text); min-height: 100vh; max-width: 480px; margin: 0 auto; position: relative; overflow-x: hidden; }
+:root {
+  --navy:#0A1628; --navy2:#122040; --navy3:#1a2f55;
+  --orange:#FF6B1A; --orange2:#ff8c4a;
+  --green:#00C853; --red:#FF3B30; --yellow:#FFD600;
+  --white:#FFFFFF; --gray:#a0aec0;
+  --card:#162035; --card2:#1e2d4a; --text:#e2e8f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Nunito',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;max-width:480px;margin:0 auto}
+.hidden{display:none!important}
 
-  /* ===== HIDDEN ===== */
-  .hidden { display: none !important; }
+/* LOGIN */
+#loginPage{
+  min-height:100vh;
+  background:linear-gradient(160deg,#0A1628 0%,#1a2f55 50%,#0A1628 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:2rem 1.5rem;position:relative;overflow:hidden;
+}
+#loginPage::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,107,26,.18) 0%,transparent 70%);border-radius:50%}
+#loginPage::after{content:'';position:absolute;bottom:-60px;left:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,200,83,.12) 0%,transparent 70%);border-radius:50%}
 
-  /* ===== LOGIN PAGE ===== */
-  #loginPage {
-    min-height: 100vh;
-    background: linear-gradient(160deg, #0A1628 0%, #1a2f55 50%, #0A1628 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  #loginPage::before {
-    content: '';
-    position: absolute;
-    top: -80px; right: -80px;
-    width: 280px; height: 280px;
-    background: radial-gradient(circle, rgba(255,107,26,0.18) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-  #loginPage::after {
-    content: '';
-    position: absolute;
-    bottom: -60px; left: -60px;
-    width: 220px; height: 220px;
-    background: radial-gradient(circle, rgba(0,200,83,0.12) 0%, transparent 70%);
-    border-radius: 50%;
-  }
+.login-logo{margin-bottom:2rem;text-align:center;position:relative;z-index:1}
+.logo-ring{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#ff3d00);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 0 0 8px rgba(255,107,26,.15),0 0 0 16px rgba(255,107,26,.07)}
+.logo-ring svg{width:44px;height:44px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.login-logo h1{font-size:2rem;font-weight:900;color:var(--white)}
+.login-logo p{font-size:.875rem;color:var(--gray);letter-spacing:2px;text-transform:uppercase}
 
-  .login-logo {
-    margin-bottom: 2rem;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-  .login-logo .logo-ring {
-    width: 90px; height: 90px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--orange), #ff3d00);
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1rem;
-    box-shadow: 0 0 0 8px rgba(255,107,26,0.15), 0 0 0 16px rgba(255,107,26,0.07);
-  }
-  .login-logo .logo-ring svg { width: 44px; height: 44px; fill: white; }
-  .login-logo h1 { font-size: 2rem; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
-  .login-logo p { font-size: 0.875rem; color: var(--gray); margin-top: 0.25rem; letter-spacing: 2px; text-transform: uppercase; }
+.login-card{background:var(--card);border-radius:1.5rem;padding:1.75rem;width:100%;max-width:380px;box-shadow:0 25px 60px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);position:relative;z-index:1}
 
-  .login-card {
-    background: var(--card);
-    border-radius: 1.5rem;
-    padding: 1.75rem;
-    width: 100%;
-    max-width: 380px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-    border: 1px solid rgba(255,255,255,0.06);
-    position: relative; z-index: 1;
-  }
+.role-tabs{display:flex;background:var(--navy);border-radius:.75rem;padding:4px;margin-bottom:1.5rem;gap:4px}
+.role-tab{flex:1;padding:.6rem;border:none;border-radius:.6rem;font-family:'Nunito',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;transition:all .25s;background:transparent;color:var(--gray)}
+.role-tab.active{background:var(--orange);color:white;box-shadow:0 4px 12px rgba(255,107,26,.4)}
 
-  .role-tabs {
-    display: flex;
-    background: var(--navy);
-    border-radius: 0.75rem;
-    padding: 4px;
-    margin-bottom: 1.5rem;
-    gap: 4px;
-  }
-  .role-tab {
-    flex: 1;
-    padding: 0.6rem;
-    border: none;
-    border-radius: 0.6rem;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.25s;
-    background: transparent;
-    color: var(--gray);
-  }
-  .role-tab.active {
-    background: var(--orange);
-    color: white;
-    box-shadow: 0 4px 12px rgba(255,107,26,0.4);
-  }
+.inp-group{margin-bottom:1.25rem}
+.inp-label{display:block;font-size:.75rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem}
+.inp-wrap{position:relative}
+.inp-wrap svg{position:absolute;left:.875rem;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--gray);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.inp-field{width:100%;background:var(--navy);border:1.5px solid rgba(255,255,255,.08);border-radius:.75rem;padding:.75rem .875rem .75rem 2.75rem;color:var(--white);font-family:'Nunito',sans-serif;font-size:.9375rem;font-weight:600;transition:border-color .2s}
+.inp-field:focus{outline:none;border-color:var(--orange)}
+.inp-field::placeholder{color:rgba(255,255,255,.2);font-weight:400}
 
-  .input-group { margin-bottom: 1.25rem; }
-  .input-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-  .input-wrap { position: relative; }
-  .input-wrap svg { position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--gray); stroke: currentColor; fill: none; stroke-width: 2; }
-  .input-field {
-    width: 100%;
-    background: var(--navy);
-    border: 1.5px solid rgba(255,255,255,0.08);
-    border-radius: 0.75rem;
-    padding: 0.75rem 0.875rem 0.75rem 2.75rem;
-    color: var(--white);
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    transition: border-color 0.2s;
-  }
-  .input-field:focus { outline: none; border-color: var(--orange); }
-  .input-field::placeholder { color: rgba(255,255,255,0.2); font-weight: 400; }
+.login-btn{width:100%;background:linear-gradient(135deg,var(--orange),#e55a10);color:white;border:none;border-radius:.875rem;padding:.9rem;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,26,.4);transition:all .2s}
+.login-btn:active{transform:scale(.97)}
+.login-err{color:var(--red);font-size:.8rem;font-weight:700;text-align:center;margin-top:.75rem;display:none}
 
-  .login-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--orange), #e55a10);
-    color: white;
-    border: none;
-    border-radius: 0.875rem;
-    padding: 0.9rem;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(255,107,26,0.4);
-    transition: all 0.2s;
-    letter-spacing: 0.5px;
-  }
-  .login-btn:active { transform: scale(0.97); }
+.creds-box{margin-top:1.25rem;background:rgba(255,107,26,.08);border:1px solid rgba(255,107,26,.2);border-radius:.75rem;padding:1rem}
+.creds-box .ctitle{font-size:.75rem;font-weight:700;color:var(--orange2);margin-bottom:.5rem}
+.cred-row{display:flex;justify-content:space-between;margin-bottom:.25rem}
+.cred-row span:first-child{color:var(--gray);font-size:.8rem}
+.cred-row span:last-child{color:var(--white);font-size:.8rem;font-weight:700}
 
-  .creds-box {
-    margin-top: 1.25rem;
-    background: rgba(255,107,26,0.08);
-    border: 1px solid rgba(255,107,26,0.2);
-    border-radius: 0.75rem;
-    padding: 1rem;
-  }
-  .creds-box p { font-size: 0.75rem; color: var(--orange2); font-weight: 700; margin-bottom: 0.5rem; }
-  .creds-box .cred-row { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
-  .creds-box .cred-row span:first-child { color: var(--gray); font-size: 0.8rem; }
-  .creds-box .cred-row span:last-child { color: var(--white); font-size: 0.8rem; font-weight: 700; }
+/* APP HEADER */
+#mainApp{display:flex;flex-direction:column;min-height:100vh}
+.app-header{background:var(--navy2);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.05)}
+.ah-left{display:flex;align-items:center;gap:.75rem}
+.ah-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#e55a10);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:white;box-shadow:0 4px 10px rgba(255,107,26,.35)}
+.ah-name{font-size:.9375rem;font-weight:800;color:var(--white);line-height:1.2}
+.ah-role{font-size:.75rem;color:var(--orange);font-weight:700;text-transform:capitalize}
+.ah-right{display:flex;gap:.5rem}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.icon-btn svg{width:18px;height:18px;stroke:var(--gray);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-  /* ===== MAIN APP ===== */
-  #mainApp { display: flex; flex-direction: column; min-height: 100vh; }
+/* ROLE STRIP */
+.role-strip{background:var(--navy);padding:.6rem 1.25rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.role-strip label{font-size:.7rem;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+.strip-btn{padding:.3rem .875rem;border-radius:2rem;border:1.5px solid rgba(255,255,255,.1);background:transparent;color:var(--gray);font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s}
+.strip-btn.active{background:var(--orange);border-color:var(--orange);color:white;box-shadow:0 3px 10px rgba(255,107,26,.3)}
 
-  /* Top Header */
-  .app-header {
-    background: var(--navy2);
-    padding: 1rem 1.25rem 0.875rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky; top: 0; z-index: 100;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-  .app-header-left { display: flex; align-items: center; gap: 0.75rem; }
-  .app-header-avatar {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--orange), #e55a10);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 1rem; color: white;
-    box-shadow: 0 4px 10px rgba(255,107,26,0.35);
-  }
-  .app-header-info h3 { font-size: 0.9375rem; font-weight: 800; color: var(--white); line-height: 1.2; }
-  .app-header-info p { font-size: 0.75rem; color: var(--orange); font-weight: 700; text-transform: capitalize; }
-  .app-header-right { display: flex; align-items: center; gap: 0.5rem; }
-  .icon-btn {
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255,255,255,0.07);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .icon-btn:hover { background: rgba(255,255,255,0.12); }
-  .icon-btn svg { width: 18px; height: 18px; stroke: var(--gray); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* CONTENT */
+.content{flex:1;padding:1rem 1.25rem 5.5rem;overflow-y:auto}
 
-  /* Role Switcher Strip */
-  .role-strip {
-    background: var(--navy);
-    padding: 0.6rem 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    overflow-x: auto;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-  }
-  .role-strip::-webkit-scrollbar { display: none; }
-  .role-strip span { font-size: 0.7rem; color: var(--gray); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
-  .strip-btn {
-    padding: 0.3rem 0.875rem;
-    border-radius: 2rem;
-    border: 1.5px solid rgba(255,255,255,0.1);
-    background: transparent;
-    color: var(--gray);
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
-  }
-  .strip-btn.active { background: var(--orange); border-color: var(--orange); color: white; box-shadow: 0 3px 10px rgba(255,107,26,0.3); }
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid rgba(255,255,255,.07);display:flex;z-index:200}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.6rem .25rem;border:none;background:transparent;cursor:pointer;gap:.25rem}
+.nav-icon{width:42px;height:42px;border-radius:.875rem;display:flex;align-items:center;justify-content:center;transition:all .25s}
+.nav-icon svg{width:20px;height:20px;stroke:var(--gray);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+.nav-label{font-size:.6875rem;font-weight:700;color:var(--gray);transition:color .2s}
+.nav-item.active .nav-icon{background:rgba(255,107,26,.15)}
+.nav-item.active .nav-icon svg{stroke:var(--orange)}
+.nav-item.active .nav-label{color:var(--orange)}
 
-  /* Content Area */
-  .content { flex: 1; padding: 1rem 1.25rem 5.5rem; overflow-y: auto; }
+/* CARDS & COMPONENTS */
+.page-title{font-size:1.5rem;font-weight:900;color:var(--white);margin-bottom:1.25rem}
+.section-card{background:var(--card);border-radius:1.25rem;padding:1.25rem;margin-bottom:1rem;border:1px solid rgba(255,255,255,.05)}
+.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.sec-title{font-size:1rem;font-weight:800;color:var(--white)}
+.see-all{font-size:.8rem;font-weight:700;color:var(--orange);background:none;border:none;cursor:pointer}
 
-  /* Bottom Navigation */
-  .bottom-nav {
-    position: fixed;
-    bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 100%; max-width: 480px;
-    background: var(--card);
-    border-top: 1px solid rgba(255,255,255,0.07);
-    display: flex;
-    z-index: 200;
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .nav-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0.6rem 0.25rem;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    gap: 0.25rem;
-    position: relative;
-    transition: all 0.2s;
-  }
-  .nav-icon {
-    width: 42px; height: 42px;
-    border-radius: 0.875rem;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.25s;
-  }
-  .nav-icon svg { width: 20px; height: 20px; stroke: var(--gray); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
-  .nav-label { font-size: 0.6875rem; font-weight: 700; color: var(--gray); transition: color 0.2s; }
-  .nav-item.active .nav-icon { background: rgba(255,107,26,0.15); }
-  .nav-item.active .nav-icon svg { stroke: var(--orange); }
-  .nav-item.active .nav-label { color: var(--orange); }
-  .nav-item.admin-hidden { display: none; }
+.hero-card{background:linear-gradient(135deg,#1a2f55,#0f1f3e);border-radius:1.5rem;padding:1.5rem;margin-bottom:1.25rem;border:1px solid rgba(255,107,26,.2);position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,26,.2) 0%,transparent 70%)}
+.hero-label{font-size:.75rem;color:var(--gray);font-weight:600;margin-bottom:.5rem}
+.hero-value{font-size:2.5rem;font-weight:900;color:var(--white);line-height:1}
+.hero-sub{font-size:.8rem;color:var(--orange);font-weight:700;margin-top:.5rem}
 
-  /* ===== COMPONENTS ===== */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.25rem}
+.stats-grid.cols3{grid-template-columns:1fr 1fr 1fr}
+.stat-card{background:var(--card2);border-radius:1.25rem;padding:1.125rem;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden}
+.stat-icon{width:38px;height:38px;border-radius:.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem}
+.stat-icon svg{width:20px;height:20px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.stat-val{font-size:1.625rem;font-weight:900;color:var(--white);line-height:1;margin-bottom:.25rem}
+.stat-lbl{font-size:.75rem;color:var(--gray);font-weight:600}
 
-  /* Page Title */
-  .page-title { font-size: 1.5rem; font-weight: 900; color: var(--white); margin-bottom: 1.25rem; }
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.25rem}
+.quick-btn{display:flex;flex-direction:column;align-items:center;gap:.5rem;background:transparent;border:none;cursor:pointer;padding:.5rem 0}
+.quick-icon{width:52px;height:52px;border-radius:1rem;display:flex;align-items:center;justify-content:center;background:var(--card2);border:1px solid rgba(255,255,255,.07);transition:transform .2s}
+.quick-icon:active{transform:scale(.93)}
+.quick-icon svg{width:24px;height:24px;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.quick-lbl{font-size:.7rem;font-weight:700;color:var(--gray);text-align:center}
 
-  /* Stats Row */
-  .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; margin-bottom: 1.25rem; }
-  .stats-row.three { grid-template-columns: 1fr 1fr 1fr; }
-  .stats-row.four { grid-template-columns: 1fr 1fr; }
+/* NOTICE */
+.notice-row{display:flex;align-items:flex-start;gap:.875rem;padding:.875rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.notice-row:last-child{border-bottom:none;padding-bottom:0}
+.n-dot{width:38px;height:38px;border-radius:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+.n-info{flex:1}
+.n-title{font-size:.875rem;font-weight:700;color:var(--white);margin-bottom:.2rem}
+.n-meta{font-size:.75rem;color:var(--gray)}
+.n-badge{padding:.2rem .625rem;border-radius:2rem;font-size:.7rem;font-weight:700;flex-shrink:0;align-self:flex-start}
 
-  .stat-card {
-    background: var(--card2);
-    border-radius: 1.25rem;
-    padding: 1.125rem;
-    border: 1px solid rgba(255,255,255,0.06);
-    position: relative;
-    overflow: hidden;
-  }
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    top: -20px; right: -20px;
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    background: var(--accent-color, rgba(255,107,26,0.12));
-  }
-  .stat-icon {
-    width: 38px; height: 38px;
-    border-radius: 0.75rem;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 0.75rem;
-    background: var(--accent-color, rgba(255,107,26,0.15));
-  }
-  .stat-icon svg { width: 20px; height: 20px; stroke: var(--accent-stroke, var(--orange)); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .stat-value { font-size: 1.625rem; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 0.25rem; }
-  .stat-label { font-size: 0.75rem; color: var(--gray); font-weight: 600; }
+/* ATTENDANCE */
+.att-item{background:var(--card2);border-radius:1rem;padding:1rem;margin-bottom:.75rem;border:1px solid rgba(255,255,255,.05)}
+.att-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.att-sub{font-size:.875rem;font-weight:700;color:var(--white)}
+.att-pct{font-size:1rem;font-weight:900}
+.att-meta{font-size:.75rem;color:var(--gray);margin-bottom:.625rem}
+.progress{background:rgba(255,255,255,.08);border-radius:2rem;height:6px;overflow:hidden}
+.progress-fill{height:100%;border-radius:2rem;transition:width .5s ease}
 
-  /* Cards */
-  .section-card {
-    background: var(--card);
-    border-radius: 1.25rem;
-    padding: 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid rgba(255,255,255,0.05);
-  }
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  .section-title { font-size: 1rem; font-weight: 800; color: var(--white); }
-  .see-all { font-size: 0.8rem; font-weight: 700; color: var(--orange); background: none; border: none; cursor: pointer; }
+/* FORM */
+.f-group{margin-bottom:1.25rem}
+.f-label{display:block;font-size:.75rem;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem}
+.f-ctrl{width:100%;background:var(--navy);border:1.5px solid rgba(255,255,255,.08);border-radius:.875rem;padding:.75rem 1rem;color:var(--white);font-family:'Nunito',sans-serif;font-size:.9375rem;font-weight:600;transition:border-color .2s;appearance:none}
+.f-ctrl:focus{outline:none;border-color:var(--orange)}
+.f-ctrl::placeholder{color:rgba(255,255,255,.2);font-weight:400}
+.f-ctrl option{background:var(--navy2);color:var(--white)}
 
-  /* Notice Item */
-  .notice-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.875rem;
-    padding: 0.875rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-  .notice-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .notice-dot {
-    width: 38px; height: 38px;
-    border-radius: 0.75rem;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    font-size: 1rem;
-    font-weight: 800;
-  }
-  .dot-exam { background: rgba(255,59,48,0.15); color: #FF3B30; }
-  .dot-events { background: rgba(0,200,83,0.15); color: #00C853; }
-  .dot-academic { background: rgba(255,214,0,0.15); color: #FFD600; }
-  .notice-info { flex: 1; }
-  .notice-name { font-size: 0.875rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
-  .notice-meta { font-size: 0.75rem; color: var(--gray); }
-  .notice-badge {
-    padding: 0.2rem 0.625rem;
-    border-radius: 2rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .nb-exam { background: rgba(255,59,48,0.15); color: #FF3B30; }
-  .nb-events { background: rgba(0,200,83,0.15); color: #00C853; }
-  .nb-academic { background: rgba(255,214,0,0.15); color: #FFD600; }
+/* BUTTONS */
+.btn-org{width:100%;background:linear-gradient(135deg,var(--orange),#e55a10);color:white;border:none;border-radius:.875rem;padding:.875rem;font-family:'Nunito',sans-serif;font-size:.9375rem;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,26,.35);transition:all .2s}
+.btn-org:active{transform:scale(.97)}
+.btn-ghost{background:rgba(255,255,255,.07);color:var(--white);border:1.5px solid rgba(255,255,255,.1);border-radius:.875rem;padding:.75rem 1.25rem;font-family:'Nunito',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer}
+.btn-grn{background:linear-gradient(135deg,#00C853,#00a844);color:white;border:none;border-radius:.875rem;padding:.75rem 1.25rem;font-family:'Nunito',sans-serif;font-size:.875rem;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(0,200,83,.3)}
+.btn-red{background:linear-gradient(135deg,#FF3B30,#cc2f26);color:white;border:none;border-radius:.875rem;padding:.75rem 1.25rem;font-family:'Nunito',sans-serif;font-size:.875rem;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(255,59,48,.3)}
+.btn-row{display:flex;gap:.75rem}
+.btn-row .btn-grn,.btn-row .btn-red{flex:1}
 
-  /* Quick Actions */
-  .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
-  .quick-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem 0;
-  }
-  .quick-icon {
-    width: 52px; height: 52px;
-    border-radius: 1rem;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--card2);
-    border: 1px solid rgba(255,255,255,0.07);
-    transition: transform 0.2s;
-  }
-  .quick-icon:active { transform: scale(0.93); }
-  .quick-icon svg { width: 24px; height: 24px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
-  .quick-label { font-size: 0.7rem; font-weight: 700; color: var(--gray); text-align: center; }
+/* LIST ITEMS */
+.list-item{background:var(--card2);border-radius:1rem;padding:1rem;margin-bottom:.75rem;border:1px solid rgba(255,255,255,.05)}
+.li-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem}
+.li-title{font-size:.9rem;font-weight:800;color:var(--white)}
+.li-sub{font-size:.75rem;color:var(--gray);margin-top:.25rem}
+.pill{padding:.25rem .75rem;border-radius:2rem;font-size:.7rem;font-weight:800}
+.pill-pend{background:rgba(255,214,0,.15);color:#FFD600}
+.pill-appr{background:rgba(0,200,83,.15);color:#00C853}
+.pill-subm{background:rgba(0,200,83,.15);color:#00C853}
+.pill-rejt{background:rgba(255,59,48,.15);color:#FF3B30}
 
-  /* Balance / Hero Card */
-  .hero-card {
-    background: linear-gradient(135deg, #1a2f55, #0f1f3e);
-    border-radius: 1.5rem;
-    padding: 1.5rem;
-    margin-bottom: 1.25rem;
-    border: 1px solid rgba(255,107,26,0.2);
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-card::before {
-    content: '';
-    position: absolute;
-    top: -40px; right: -40px;
-    width: 160px; height: 160px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,107,26,0.2) 0%, transparent 70%);
-  }
-  .hero-label { font-size: 0.75rem; color: var(--gray); font-weight: 600; margin-bottom: 0.5rem; }
-  .hero-value { font-size: 2.5rem; font-weight: 900; color: var(--white); line-height: 1; }
-  .hero-sub { font-size: 0.8rem; color: var(--orange); font-weight: 700; margin-top: 0.5rem; }
+/* SCHEDULE */
+.sch-item{display:flex;align-items:center;gap:.875rem;background:var(--card2);border-radius:1rem;padding:.875rem 1rem;margin-bottom:.75rem;border:1px solid rgba(255,255,255,.05)}
+.sch-time{background:rgba(255,107,26,.1);border-radius:.75rem;padding:.5rem;text-align:center;min-width:56px}
+.sch-hr{font-size:.8rem;font-weight:800;color:var(--orange)}
+.sch-am{font-size:.65rem;color:var(--gray)}
+.sch-info{flex:1}
+.sch-name{font-size:.875rem;font-weight:800;color:var(--white)}
+.sch-room{font-size:.75rem;color:var(--gray)}
 
-  /* Attendance Row */
-  .att-item {
-    background: var(--card2);
-    border-radius: 1rem;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-    border: 1px solid rgba(255,255,255,0.05);
-  }
-  .att-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-  .att-subject { font-size: 0.875rem; font-weight: 700; color: var(--white); }
-  .att-pct { font-size: 1rem; font-weight: 900; }
-  .att-meta { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.625rem; }
-  .progress { background: rgba(255,255,255,0.08); border-radius: 2rem; height: 6px; overflow: hidden; }
-  .progress-bar { height: 100%; border-radius: 2rem; transition: width 0.5s ease; }
+/* ATTENDANCE MARKING */
+.mark-row{display:flex;align-items:center;justify-content:space-between;background:var(--card2);border-radius:1rem;padding:.75rem 1rem;margin-bottom:.625rem;border:1px solid rgba(255,255,255,.05)}
+.s-name{font-size:.875rem;font-weight:700;color:var(--white)}
+.s-roll{font-size:.75rem;color:var(--gray)}
+.mark-btns{display:flex;gap:.5rem}
+.mark-p,.mark-a{padding:.35rem .875rem;border-radius:.625rem;font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:800;border:none;cursor:pointer}
+.mark-p{background:rgba(0,200,83,.15);color:var(--green)}
+.mark-p.sel{background:var(--green);color:white}
+.mark-a{background:rgba(255,59,48,.12);color:var(--red)}
+.mark-a.sel{background:var(--red);color:white}
 
-  /* Form Elements */
-  .form-section { margin-bottom: 1.25rem; }
-  .form-lbl { display: block; font-size: 0.75rem; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-  .form-ctrl {
-    width: 100%;
-    background: var(--navy);
-    border: 1.5px solid rgba(255,255,255,0.08);
-    border-radius: 0.875rem;
-    padding: 0.75rem 1rem;
-    color: var(--white);
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    transition: border-color 0.2s;
-    appearance: none;
-  }
-  .form-ctrl:focus { outline: none; border-color: var(--orange); }
-  .form-ctrl::placeholder { color: rgba(255,255,255,0.2); font-weight: 400; }
-  .form-ctrl option { background: var(--navy2); color: var(--white); }
+/* ANALYTICS */
+.ana-item{margin-bottom:1.25rem}
+.ana-head{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700;margin-bottom:.5rem}
+.ana-head span:first-child{color:var(--gray)}
+.ana-head span:last-child{color:var(--white)}
 
-  /* Buttons */
-  .btn-orange {
-    width: 100%;
-    background: linear-gradient(135deg, var(--orange), #e55a10);
-    color: white;
-    border: none;
-    border-radius: 0.875rem;
-    padding: 0.875rem;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.9375rem;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(255,107,26,0.35);
-    transition: all 0.2s;
-  }
-  .btn-orange:active { transform: scale(0.97); }
-
-  .btn-ghost {
-    background: rgba(255,255,255,0.07);
-    color: var(--white);
-    border: 1.5px solid rgba(255,255,255,0.1);
-    border-radius: 0.875rem;
-    padding: 0.75rem 1.25rem;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-ghost:active { transform: scale(0.97); }
-
-  .btn-green {
-    background: linear-gradient(135deg, #00C853, #00a844);
-    color: white;
-    border: none;
-    border-radius: 0.875rem;
-    padding: 0.75rem 1.25rem;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(0,200,83,0.3);
-    transition: all 0.2s;
-  }
-  .btn-red {
-    background: linear-gradient(135deg, #FF3B30, #cc2f26);
-    color: white;
-    border: none;
-    border-radius: 0.875rem;
-    padding: 0.75rem 1.25rem;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(255,59,48,0.3);
-    transition: all 0.2s;
-  }
-  .btn-row { display: flex; gap: 0.75rem; }
-  .btn-row .btn-green, .btn-row .btn-red { flex: 1; }
-
-  /* Leave/Workload Items */
-  .list-item {
-    background: var(--card2);
-    border-radius: 1rem;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-    border: 1px solid rgba(255,255,255,0.05);
-  }
-  .list-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
-  .list-item-title { font-size: 0.9rem; font-weight: 800; color: var(--white); }
-  .list-item-sub { font-size: 0.75rem; color: var(--gray); margin-top: 0.25rem; }
-  .status-pill {
-    padding: 0.25rem 0.75rem;
-    border-radius: 2rem;
-    font-size: 0.7rem;
-    font-weight: 800;
-    flex-shrink: 0;
-  }
-  .pill-pending { background: rgba(255,214,0,0.15); color: #FFD600; }
-  .pill-approved { background: rgba(0,200,83,0.15); color: #00C853; }
-  .pill-submitted { background: rgba(0,200,83,0.15); color: #00C853; }
-
-  /* Schedule Item */
-  .schedule-item {
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-    background: var(--card2);
-    border-radius: 1rem;
-    padding: 0.875rem 1rem;
-    margin-bottom: 0.75rem;
-    border: 1px solid rgba(255,255,255,0.05);
-  }
-  .schedule-time {
-    background: rgba(255,107,26,0.1);
-    border-radius: 0.75rem;
-    padding: 0.5rem;
-    text-align: center;
-    min-width: 56px;
-  }
-  .schedule-time .time { font-size: 0.8rem; font-weight: 800; color: var(--orange); }
-  .schedule-time .ampm { font-size: 0.65rem; color: var(--gray); }
-  .schedule-info { flex: 1; }
-  .schedule-name { font-size: 0.875rem; font-weight: 800; color: var(--white); }
-  .schedule-room { font-size: 0.75rem; color: var(--gray); }
-
-  /* Progress Analytics */
-  .analytics-item { margin-bottom: 1.25rem; }
-  .analytics-header { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .analytics-header span:first-child { color: var(--gray); }
-  .analytics-header span:last-child { color: var(--white); }
-
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 5.5rem;
-    left: 50%; transform: translateX(-50%);
-    background: var(--card2);
-    border: 1px solid rgba(0,200,83,0.3);
-    color: var(--white);
-    padding: 0.875rem 1.5rem;
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    z-index: 9999;
-    font-weight: 700;
-    font-size: 0.875rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    white-space: nowrap;
-  }
-  .toast-icon { width: 22px; height: 22px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .toast-icon svg { width: 13px; height: 13px; stroke: white; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-
-  /* Attendance Mark Row */
-  .mark-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--card2);
-    border-radius: 1rem;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.625rem;
-    border: 1px solid rgba(255,255,255,0.05);
-  }
-  .mark-row .student-info { }
-  .mark-row .student-name { font-size: 0.875rem; font-weight: 700; color: var(--white); }
-  .mark-row .roll-no { font-size: 0.75rem; color: var(--gray); }
-  .mark-btns { display: flex; gap: 0.5rem; }
-  .mark-p, .mark-a {
-    padding: 0.35rem 0.875rem;
-    border-radius: 0.625rem;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 800;
-    border: none;
-    cursor: pointer;
-  }
-  .mark-p { background: rgba(0,200,83,0.15); color: var(--green); }
-  .mark-p.selected { background: var(--green); color: white; }
-  .mark-a { background: rgba(255,59,48,0.12); color: var(--red); }
-  .mark-a.selected { background: var(--red); color: white; }
+/* TOAST */
+.toast{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid rgba(0,200,83,.3);color:var(--white);padding:.875rem 1.5rem;border-radius:1rem;display:flex;align-items:center;gap:.625rem;z-index:9999;font-weight:700;font-size:.875rem;box-shadow:0 10px 30px rgba(0,0,0,.5);white-space:nowrap}
+.toast-ico{width:22px;height:22px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toast-ico svg{width:13px;height:13px;stroke:white;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 </style>
 </head>
 <body>
 
-<!-- ====== LOGIN ====== -->
+<!-- ===== LOGIN ===== -->
 <div id="loginPage">
   <div class="login-logo">
     <div class="logo-ring">
@@ -616,27 +211,24 @@
       <button class="role-tab" data-role="faculty">Faculty</button>
       <button class="role-tab" data-role="admin">Admin</button>
     </div>
-
-    <div class="input-group">
-      <label class="input-label">Username</label>
-      <div class="input-wrap">
+    <div class="inp-group">
+      <label class="inp-label">Username</label>
+      <div class="inp-wrap">
         <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <input type="text" id="loginUser" class="input-field" placeholder="Enter your username">
+        <input id="loginUser" type="text" class="inp-field" placeholder="Enter username">
       </div>
     </div>
-
-    <div class="input-group">
-      <label class="input-label">Password</label>
-      <div class="input-wrap">
-        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <input type="password" id="loginPass" class="input-field" placeholder="Enter your password">
+    <div class="inp-group">
+      <label class="inp-label">Password</label>
+      <div class="inp-wrap">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <input id="loginPass" type="password" class="inp-field" placeholder="Enter password">
       </div>
     </div>
-
     <button class="login-btn" id="loginBtn">Login Securely →</button>
-
+    <p class="login-err" id="loginErr">Invalid username or password</p>
     <div class="creds-box">
-      <p>🔑 Demo Credentials</p>
+      <p class="ctitle">Demo Credentials</p>
       <div class="cred-row"><span>Student</span><span>student / student123</span></div>
       <div class="cred-row"><span>Faculty</span><span>faculty / faculty123</span></div>
       <div class="cred-row"><span>Admin</span><span>admin / admin123</span></div>
@@ -644,19 +236,17 @@
   </div>
 </div>
 
-<!-- ====== MAIN APP ====== -->
+<!-- ===== MAIN APP ===== -->
 <div id="mainApp" class="hidden">
-
-  <!-- Header -->
   <div class="app-header">
-    <div class="app-header-left">
-      <div class="app-header-avatar" id="headerAvatar">R</div>
-      <div class="app-header-info">
-        <h3 id="headerName">Rajesh Verma</h3>
-        <p id="headerRole">Student</p>
+    <div class="ah-left">
+      <div class="ah-avatar" id="hAvatar">R</div>
+      <div>
+        <div class="ah-name" id="hName">Rajesh Verma</div>
+        <div class="ah-role" id="hRole">Student</div>
       </div>
     </div>
-    <div class="app-header-right">
+    <div class="ah-right">
       <button class="icon-btn">
         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       </button>
@@ -666,568 +256,540 @@
     </div>
   </div>
 
-  <!-- Role Strip -->
   <div class="role-strip">
-    <span>Demo:</span>
-    <button class="strip-btn active" data-switch="student">Student</button>
-    <button class="strip-btn" data-switch="faculty">Faculty</button>
-    <button class="strip-btn" data-switch="admin">Admin</button>
+    <label>Demo:</label>
+    <button class="strip-btn active" data-sw="student">Student</button>
+    <button class="strip-btn" data-sw="faculty">Faculty</button>
+    <button class="strip-btn" data-sw="admin">Admin</button>
   </div>
 
-  <!-- Content -->
-  <div class="content" id="contentArea"></div>
+  <div class="content" id="content"></div>
 
-  <!-- Bottom Nav -->
   <div class="bottom-nav">
-    <button class="nav-item active" data-view="dashboard">
+    <button class="nav-item active" data-v="dashboard">
       <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
       <span class="nav-label">Home</span>
     </button>
-    <button class="nav-item" data-view="notices">
+    <button class="nav-item" data-v="notices">
       <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
       <span class="nav-label">Notices</span>
     </button>
-    <button class="nav-item" data-view="attendance">
+    <button class="nav-item" data-v="attendance">
       <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
       <span class="nav-label">Attend</span>
     </button>
-    <button class="nav-item" data-view="leave" id="navLeave">
-      <div class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+    <button class="nav-item" data-v="leave" id="navLeave">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
       <span class="nav-label">Leave</span>
     </button>
-    <button class="nav-item" data-view="workload" id="navWork">
-      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-      <span class="nav-label" id="workLabel">Assign</span>
+    <button class="nav-item" data-v="workload" id="navWork">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <span class="nav-label" id="workLbl">Assign</span>
     </button>
   </div>
 
-  <!-- Toast -->
   <div id="toast" class="toast hidden">
-    <div class="toast-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-    <span id="toastMsg">Done successfully!</span>
+    <div class="toast-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <span id="toastMsg">Done!</span>
   </div>
 </div>
 
 <script>
-  let currentUser = 'student';
-  let selectedRole = 'student';
+// ======= STATE =======
+var cur = 'student';
+var selRole = 'student';
 
-  const users = {
-    student: { username: 'student', password: 'student123', name: 'Rajesh Verma', initial: 'R' },
-    faculty: { username: 'faculty', password: 'faculty123', name: 'Dr. Anjali Mehta', initial: 'A' },
-    admin:   { username: 'admin',   password: 'admin123',   name: 'Suresh Patel', initial: 'S' }
-  };
+var USERS = {
+  student: {u:'student', p:'student123', name:'Rajesh Verma',   init:'R'},
+  faculty: {u:'faculty', p:'faculty123', name:'Dr. Anjali Mehta',init:'A'},
+  admin:   {u:'admin',   p:'admin123',   name:'Suresh Patel',   init:'S'}
+};
 
-  const notices = [
-    { title: 'Mid-Term Exam Schedule', category: 'Exam', date: '15 Feb 2024', author: 'Exam Cell' },
-    { title: 'Annual Tech Fest Open', category: 'Events', date: '14 Feb 2024', author: 'Student Council' },
-    { title: 'Library Timing Extended', category: 'Academic', date: '13 Feb 2024', author: 'Library Dept' },
-    { title: 'Career Counseling Session', category: 'Events', date: '12 Feb 2024', author: 'Placement Cell' }
-  ];
+var NOTICES = [
+  {title:'Mid-Term Exam Schedule', cat:'Exam',     date:'15 Feb 2024', author:'Exam Cell'},
+  {title:'Annual Tech Fest Open',  cat:'Events',   date:'14 Feb 2024', author:'Student Council'},
+  {title:'Library Timing Extended',cat:'Academic', date:'13 Feb 2024', author:'Library Dept'},
+  {title:'Career Counseling',      cat:'Events',   date:'12 Feb 2024', author:'Placement Cell'}
+];
 
-  const attendance = [
-    { subject: 'Data Structures', present: 28, total: 32, pct: 87.5 },
-    { subject: 'Database Management', present: 30, total: 32, pct: 93.8 },
-    { subject: 'Web Development', present: 25, total: 30, pct: 83.3 },
-    { subject: 'Operating Systems', present: 29, total: 32, pct: 90.6 }
-  ];
+// Shared leave list
+var LEAVES = [
+  {student:'Rajesh Verma', name:'Rajesh Verma', type:'Medical',        from:'10 Feb', to:'12 Feb', reason:'Fever and cold',   status:'Approved'},
+  {student:'Priya Singh',  name:'Priya Singh',  type:'Family Function',from:'15 Feb', to:'16 Feb', reason:'Sister wedding',   status:'Pending'},
+  {student:'Amit Kumar',   name:'Amit Kumar',   type:'Personal',       from:'18 Feb', to:'19 Feb', reason:'Personal work',    status:'Pending'}
+];
 
-  const leaves = [
-    { name: 'Priya Singh', type: 'Family Function', from: '15 Feb', to: '16 Feb', status: 'Pending' },
-    { name: 'Amit Kumar', type: 'Personal', from: '18 Feb', to: '19 Feb', status: 'Pending' },
-    { name: 'Rahul Sharma', type: 'Medical', from: '10 Feb', to: '12 Feb', status: 'Approved' }
-  ];
+// Student attendance data (updated when faculty submits)
+var ATT_DATA = [
+  {subject:'Data Structures',    present:28, total:32, pct:87.5},
+  {subject:'Database Management',present:30, total:32, pct:93.8},
+  {subject:'Web Development',    present:25, total:30, pct:83.3},
+  {subject:'Operating Systems',  present:29, total:32, pct:90.6}
+];
 
-  const assignments = [
-    { title: 'Data Structures Assignment 3', subject: 'Data Structures', due: '20 Feb', status: 'Pending', desc: 'Implement Binary Search Tree with all operations' },
-    { title: 'DBMS Project Report', subject: 'Database Management', due: '25 Feb', status: 'Submitted', desc: 'Complete project documentation and ER diagrams' },
-    { title: 'Web Dev Portfolio', subject: 'Web Development', due: '28 Feb', status: 'Pending', desc: 'Create a responsive portfolio website' }
-  ];
+var ATT_HISTORY = []; // submitted sessions by faculty
 
-  // ---- LOGIN ----
-  document.querySelectorAll('.role-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedRole = btn.dataset.role;
-    });
+var ASSIGNMENTS = [
+  {title:'Data Structures Assignment 3', subject:'Data Structures',    due:'20 Feb', status:'Pending',   desc:'Implement Binary Search Tree'},
+  {title:'DBMS Project Report',          subject:'Database Management', due:'25 Feb', status:'Submitted', desc:'Complete ER diagrams & docs'},
+  {title:'Web Dev Portfolio',            subject:'Web Development',     due:'28 Feb', status:'Pending',   desc:'Responsive portfolio website'}
+];
+
+// ======= HELPERS =======
+function toast(msg) {
+  document.getElementById('toastMsg').textContent = msg;
+  var t = document.getElementById('toast');
+  t.classList.remove('hidden');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.classList.add('hidden'); }, 3000);
+}
+
+function goTo(v) {
+  document.querySelectorAll('.nav-item').forEach(function(b){ b.classList.toggle('active', b.dataset.v === v); });
+  document.getElementById('content').innerHTML = buildView(v);
+}
+
+function setUser(role) {
+  cur = role;
+  document.getElementById('hAvatar').textContent = USERS[role].init;
+  document.getElementById('hName').textContent   = USERS[role].name;
+  document.getElementById('hRole').textContent   = role.charAt(0).toUpperCase() + role.slice(1);
+  document.querySelectorAll('.strip-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.sw === role); });
+  var admin = role === 'admin';
+  document.getElementById('navLeave').classList.toggle('hidden', admin);
+  document.getElementById('navWork').classList.toggle('hidden', admin);
+  document.getElementById('workLbl').textContent = role === 'student' ? 'Assign' : 'Work';
+}
+
+// ======= LOGIN =======
+document.querySelectorAll('.role-tab').forEach(function(b) {
+  b.addEventListener('click', function() {
+    document.querySelectorAll('.role-tab').forEach(function(x){ x.classList.remove('active'); });
+    b.classList.add('active');
+    selRole = b.dataset.role;
+  });
+});
+
+function doLogin() {
+  var u = document.getElementById('loginUser').value.trim();
+  var p = document.getElementById('loginPass').value.trim();
+  var c = USERS[selRole];
+  var err = document.getElementById('loginErr');
+  if (u === c.u && p === c.p) {
+    err.style.display = 'none';
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('mainApp').classList.remove('hidden');
+    setUser(selRole);
+    goTo('dashboard');
+  } else {
+    err.style.display = 'block';
+    document.getElementById('loginPass').value = '';
+  }
+}
+
+document.getElementById('loginBtn').addEventListener('click', doLogin);
+document.getElementById('loginUser').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('loginPass').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+
+// ======= LOGOUT =======
+document.getElementById('logoutBtn').addEventListener('click', function() {
+  document.getElementById('mainApp').classList.add('hidden');
+  document.getElementById('loginPage').classList.remove('hidden');
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginErr').style.display = 'none';
+  // Reset role tabs to student
+  document.querySelectorAll('.role-tab').forEach(function(b){ b.classList.toggle('active', b.dataset.role==='student'); });
+  selRole = 'student';
+});
+
+// ======= ROLE SWITCH =======
+document.querySelectorAll('.strip-btn').forEach(function(b) {
+  b.addEventListener('click', function() {
+    setUser(b.dataset.sw);
+    goTo('dashboard');
+  });
+});
+
+// ======= BOTTOM NAV =======
+document.querySelectorAll('.nav-item').forEach(function(b) {
+  b.addEventListener('click', function() { goTo(b.dataset.v); });
+});
+
+// ======= VIEW ROUTER =======
+function buildView(v) {
+  if (v === 'dashboard')  return vDashboard();
+  if (v === 'notices')    return vNotices();
+  if (v === 'attendance') return vAttendance();
+  if (v === 'leave')      return vLeave();
+  if (v === 'workload')   return vWorkload();
+  return '';
+}
+
+// ======= NOTICE ROW =======
+function noticeRow(n) {
+  var dotCls = n.cat==='Exam' ? 'background:rgba(255,59,48,.15)' : n.cat==='Events' ? 'background:rgba(0,200,83,.15)' : 'background:rgba(255,214,0,.15)';
+  var bdgCls = n.cat==='Exam' ? 'background:rgba(255,59,48,.15);color:#FF3B30' : n.cat==='Events' ? 'background:rgba(0,200,83,.15);color:#00C853' : 'background:rgba(255,214,0,.15);color:#FFD600';
+  var ico = n.cat==='Exam' ? '📋' : n.cat==='Events' ? '🎉' : '📚';
+  return '<div class="notice-row">'
+    + '<div class="n-dot" style="'+dotCls+'">'+ico+'</div>'
+    + '<div class="n-info"><div class="n-title">'+n.title+'</div><div class="n-meta">'+n.author+' · '+n.date+'</div></div>'
+    + '<span class="n-badge" style="'+bdgCls+'">'+n.cat+'</span>'
+    + '</div>';
+}
+
+// ======= DASHBOARD =======
+function vDashboard() {
+  if (cur === 'student') {
+    var overall = ATT_DATA.reduce(function(s,a){ return {p:s.p+a.present,t:s.t+a.total}; }, {p:0,t:0});
+    var ovPct = overall.t > 0 ? (overall.p/overall.t*100).toFixed(1) : 0;
+    var myLeaves = LEAVES.filter(function(l){ return l.student === USERS.student.name; });
+    var pendingAtt = ASSIGNMENTS.filter(function(a){ return a.status==='Pending'; }).length;
+    return '<div class="hero-card">'
+      + '<div class="hero-label">Overall Attendance</div>'
+      + '<div class="hero-value">'+ovPct+'%</div>'
+      + '<div class="hero-sub">'+overall.p+' / '+overall.t+' classes attended</div>'
+      + '</div>'
+      + '<div class="stats-grid">'
+      + '<div class="stat-card"><div class="stat-icon" style="background:rgba(255,59,48,.12)"><svg viewBox="0 0 24 24" style="stroke:#FF3B30"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><div class="stat-val">'+pendingAtt+'</div><div class="stat-lbl">Pending Tasks</div></div>'
+      + '<div class="stat-card"><div class="stat-icon" style="background:rgba(255,214,0,.12)"><svg viewBox="0 0 24 24" style="stroke:#FFD600"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="stat-val">'+myLeaves.filter(function(l){return l.status==='Pending';}).length+'</div><div class="stat-lbl">Pending Leaves</div></div>'
+      + '</div>'
+      + '<div class="section-card"><div class="sec-header"><span class="sec-title">Quick Access</span></div>'
+      + '<div class="quick-grid">'
+      + '<button class="quick-btn" onclick="goTo(\'attendance\')"><div class="quick-icon" style="background:rgba(0,200,83,.12)"><svg viewBox="0 0 24 24" style="stroke:#00C853"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><span class="quick-lbl">Attendance</span></button>'
+      + '<button class="quick-btn" onclick="goTo(\'leave\')"><div class="quick-icon" style="background:rgba(255,214,0,.12)"><svg viewBox="0 0 24 24" style="stroke:#FFD600"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><span class="quick-lbl">Apply Leave</span></button>'
+      + '<button class="quick-btn" onclick="goTo(\'workload\')"><div class="quick-icon" style="background:rgba(255,107,26,.12)"><svg viewBox="0 0 24 24" style="stroke:var(--orange)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><span class="quick-lbl">Assignments</span></button>'
+      + '<button class="quick-btn" onclick="goTo(\'notices\')"><div class="quick-icon" style="background:rgba(99,102,241,.15)"><svg viewBox="0 0 24 24" style="stroke:#818cf8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><span class="quick-lbl">Notices</span></button>'
+      + '</div></div>'
+      + '<div class="section-card"><div class="sec-header"><span class="sec-title">Latest Notices</span><button class="see-all" onclick="goTo(\'notices\')">See All</button></div>'
+      + NOTICES.slice(0,3).map(noticeRow).join('') + '</div>';
+  }
+
+  if (cur === 'faculty') {
+    var pendLeaves = LEAVES.filter(function(l){ return l.status==='Pending'; }).length;
+    return '<div class="stats-grid cols3">'
+      + '<div class="stat-card"><div class="stat-icon" style="background:rgba(255,107,26,.12)"><svg viewBox="0 0 24 24" style="stroke:var(--orange)"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="stat-val">3</div><div class="stat-lbl">Classes Today</div></div>'
+      + '<div class="stat-card"><div class="stat-icon" style="background:rgba(255,59,48,.12)"><svg viewBox="0 0 24 24" style="stroke:#FF3B30"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div><div class="stat-val">'+pendLeaves+'</div><div class="stat-lbl">Leave Requests</div></div>'
+      + '<div class="stat-card"><div class="stat-icon" style="background:rgba(0,200,83,.12)"><svg viewBox="0 0 24 24" style="stroke:#00C853"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-val">138</div><div class="stat-lbl">Students</div></div>'
+      + '</div>'
+      + '<div class="section-card"><div class="sec-header"><span class="sec-title">Today\'s Schedule</span></div>'
+      + '<div class="sch-item"><div class="sch-time"><div class="sch-hr">9:00</div><div class="sch-am">AM</div></div><div class="sch-info"><div class="sch-name">Data Structures - CSE-3A</div><div class="sch-room">Room 301</div></div><button class="btn-ghost" style="padding:.4rem .75rem;font-size:.75rem" onclick="goTo(\'attendance\')">Mark</button></div>'
+      + '<div class="sch-item"><div class="sch-time"><div class="sch-hr">11:00</div><div class="sch-am">AM</div></div><div class="sch-info"><div class="sch-name">Database Mgmt - CSE-3B</div><div class="sch-room">Room 302</div></div><span class="pill pill-pend" style="font-size:.7rem">Soon</span></div>'
+      + '<div class="sch-item"><div class="sch-time"><div class="sch-hr">2:00</div><div class="sch-am">PM</div></div><div class="sch-info"><div class="sch-name">Web Dev - CSE-3A</div><div class="sch-room">Lab 1</div></div><span class="pill pill-pend" style="font-size:.7rem">Soon</span></div>'
+      + '</div>';
+  }
+
+  // admin
+  return '<div class="stats-grid">'
+    + '<div class="stat-card"><div class="stat-icon" style="background:rgba(255,107,26,.12)"><svg viewBox="0 0 24 24" style="stroke:var(--orange)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-val">2,847</div><div class="stat-lbl">Students</div></div>'
+    + '<div class="stat-card"><div class="stat-icon" style="background:rgba(0,200,83,.12)"><svg viewBox="0 0 24 24" style="stroke:#00C853"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div><div class="stat-val">187</div><div class="stat-lbl">Faculty</div></div>'
+    + '<div class="stat-card"><div class="stat-icon" style="background:rgba(99,102,241,.15)"><svg viewBox="0 0 24 24" style="stroke:#818cf8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="stat-val">24</div><div class="stat-lbl">Notices</div></div>'
+    + '<div class="stat-card"><div class="stat-icon" style="background:rgba(255,214,0,.12)"><svg viewBox="0 0 24 24" style="stroke:#FFD600"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><div class="stat-val">62%</div><div class="stat-lbl">Paper Saved</div></div>'
+    + '</div>'
+    + '<div class="section-card">'
+    + '<div class="sec-header"><span class="sec-title">Platform Analytics</span></div>'
+    + anaRow('Monthly Active Users','2,134 / 3,034','70.3','var(--orange)')
+    + anaRow('Digital Notices Published','96 / 120','80','var(--green)')
+    + anaRow('Digital Attendance','163 / 210','77.6','#818cf8')
+    + anaRow('Leave Processing Reduction','50% faster','50','var(--yellow)')
+    + '</div>';
+}
+
+function anaRow(lbl,val,pct,clr) {
+  return '<div class="ana-item"><div class="ana-head"><span>'+lbl+'</span><span>'+val+'</span></div>'
+    + '<div class="progress"><div class="progress-fill" style="width:'+pct+'%;background:'+clr+'"></div></div></div>';
+}
+
+// ======= NOTICES =======
+function vNotices() {
+  var postBtn = cur !== 'student'
+    ? '<button class="btn-org" style="margin-bottom:1rem" onclick="toast(\'✅ Notice posted!\')">+ Post New Notice</button>'
+    : '';
+  return '<div class="page-title">Notices</div>'
+    + postBtn
+    + '<div class="section-card">' + NOTICES.map(noticeRow).join('') + '</div>';
+}
+
+// ======= ATTENDANCE =======
+function vAttendance() {
+  if (cur === 'student') {
+    var overall = ATT_DATA.reduce(function(s,a){ return {p:s.p+a.present,t:s.t+a.total}; },{p:0,t:0});
+    var ovPct = overall.t > 0 ? (overall.p/overall.t*100).toFixed(1) : 0;
+    var rows = ATT_DATA.map(function(a) {
+      var clr = a.pct>=85 ? 'var(--green)' : a.pct>=75 ? 'var(--yellow)' : 'var(--red)';
+      return '<div class="att-item">'
+        + '<div class="att-head"><span class="att-sub">'+a.subject+'</span><span class="att-pct" style="color:'+clr+'">'+a.pct+'%</span></div>'
+        + '<div class="att-meta">'+a.present+' / '+a.total+' classes attended</div>'
+        + '<div class="progress"><div class="progress-fill" style="width:'+a.pct+'%;background:'+clr+'"></div></div>'
+        + '</div>';
+    }).join('');
+    return '<div class="page-title">My Attendance</div>'
+      + '<div class="hero-card"><div class="hero-label">Overall Attendance</div><div class="hero-value">'+ovPct+'%</div><div class="hero-sub">'+overall.p+' / '+overall.t+' classes · Semester 6</div></div>'
+      + rows
+      + '<button class="btn-org" onclick="toast(\'📄 Attendance report downloaded!\')">⬇ Download PDF Report</button>';
+  }
+
+  // Faculty
+  var histHtml = '';
+  if (ATT_HISTORY.length > 0) {
+    histHtml = '<div class="section-card" style="margin-top:1rem"><div class="sec-title" style="margin-bottom:1rem">📋 Submitted Sessions</div>'
+      + ATT_HISTORY.map(function(h) {
+          return '<div class="list-item">'
+            + '<div class="li-head"><div><div class="li-title">'+h.cls+'</div><div class="li-sub">'+h.date+'</div></div><span class="pill pill-appr">Saved</span></div>'
+            + '<div style="display:flex;gap:1.25rem;margin-top:.5rem">'
+            + '<span style="font-size:.8rem;color:var(--green);font-weight:700">✓ Present: '+h.present+'</span>'
+            + '<span style="font-size:.8rem;color:var(--red);font-weight:700">✗ Absent: '+h.absent+'</span>'
+            + '<span style="font-size:.8rem;color:var(--orange);font-weight:700">'+h.pct+'% rate</span>'
+            + '</div></div>';
+        }).join('')
+      + '</div>';
+  }
+
+  return '<div class="page-title">Mark Attendance</div>'
+    + '<div class="section-card">'
+    + '<div class="f-group"><label class="f-label">Select Class</label>'
+    + '<select class="f-ctrl" id="clsSel" onchange="loadStudents()">'
+    + '<option value="">Choose a class...</option>'
+    + '<option>CSE-3A — Data Structures</option>'
+    + '<option>CSE-3B — Database Management</option>'
+    + '<option>CSE-3A — Web Development</option>'
+    + '</select></div>'
+    + '<div class="f-group"><label class="f-label">Date</label>'
+    + '<input type="date" class="f-ctrl" id="attDate" value="'+new Date().toISOString().split('T')[0]+'">'
+    + '</div>'
+    + '<div id="stuList"></div>'
+    + '<div id="attSubmitBtn"></div>'
+    + '</div>'
+    + histHtml;
+}
+
+function loadStudents() {
+  var sel = document.getElementById('clsSel');
+  if (!sel || !sel.value) return;
+  var names = ['Aarav Sharma','Priya Singh','Rohit Patel','Neha Gupta','Kiran Kumar','Sneha Reddy','Arjun Nair','Pooja Verma'];
+  var rows = names.map(function(n,i) {
+    return '<div class="mark-row">'
+      + '<div><div class="s-name">'+n+'</div><div class="s-roll">Roll: 2101'+String(i+1).padStart(2,'0')+'</div></div>'
+      + '<div class="mark-btns">'
+      + '<button class="mark-p" onclick="toggleMark(this)">P</button>'
+      + '<button class="mark-a" onclick="toggleMark(this)">A</button>'
+      + '</div></div>';
+  }).join('');
+  document.getElementById('stuList').innerHTML =
+    '<div style="display:flex;gap:.5rem;margin-bottom:1rem">'
+    + '<button class="btn-grn" style="flex:1;padding:.5rem" onclick="markAll(true)">✓ All Present</button>'
+    + '<button class="btn-ghost" style="flex:1;padding:.5rem" onclick="markAll(false)">✗ All Absent</button>'
+    + '</div>' + rows;
+  document.getElementById('attSubmitBtn').innerHTML =
+    '<button class="btn-org" style="margin-top:1rem" onclick="submitAttendance()">Submit Attendance</button>';
+}
+
+function toggleMark(btn) {
+  var row = btn.closest('.mark-btns');
+  row.querySelectorAll('button').forEach(function(b){ b.classList.remove('sel'); });
+  btn.classList.add('sel');
+}
+
+function markAll(present) {
+  document.querySelectorAll('.mark-row').forEach(function(row) {
+    row.querySelectorAll('.mark-p,.mark-a').forEach(function(b){ b.classList.remove('sel'); });
+    row.querySelector(present ? '.mark-p' : '.mark-a').classList.add('sel');
+  });
+  toast(present ? '✓ All marked Present' : '✗ All marked Absent');
+}
+
+function submitAttendance() {
+  var rows    = document.querySelectorAll('.mark-row');
+  var total   = rows.length;
+  var present = document.querySelectorAll('.mark-p.sel').length;
+  var absent  = document.querySelectorAll('.mark-a.sel').length;
+  var unmarked = total - present - absent;
+
+  if (unmarked > 0) {
+    toast('⚠️ Mark all students first! (' + unmarked + ' unmarked)');
+    return;
+  }
+
+  var pList = [], aList = [];
+  rows.forEach(function(row) {
+    var name = row.querySelector('.s-name').textContent;
+    if (row.querySelector('.mark-p').classList.contains('sel')) pList.push(name);
+    else aList.push(name);
   });
 
-  document.getElementById('loginBtn').addEventListener('click', doLogin);
-  document.getElementById('loginUser').addEventListener('keydown', e => e.key === 'Enter' && doLogin());
-  document.getElementById('loginPass').addEventListener('keydown', e => e.key === 'Enter' && doLogin());
+  var cls  = document.getElementById('clsSel').value;
+  var date = document.getElementById('attDate').value;
+  var pct  = Math.round(present / total * 100);
+  ATT_HISTORY.unshift({cls:cls, date:date, present:present, absent:absent, total:total, pct:pct, pList:pList, aList:aList});
 
-  function doLogin() {
-    const u = document.getElementById('loginUser').value.trim();
-    const p = document.getElementById('loginPass').value.trim();
-    const c = users[selectedRole];
-    if (u === c.username && p === c.password) {
-      currentUser = selectedRole;
-      document.getElementById('loginPage').classList.add('hidden');
-      document.getElementById('mainApp').classList.remove('hidden');
-      setUser(currentUser);
-      goTo('dashboard');
-    } else {
-      document.getElementById('loginUser').style.borderColor = '#FF3B30';
-      document.getElementById('loginPass').style.borderColor = '#FF3B30';
-      setTimeout(() => {
-        document.getElementById('loginUser').style.borderColor = '';
-        document.getElementById('loginPass').style.borderColor = '';
-      }, 1500);
+  // Update student attendance records
+  var subPart = cls.split('—')[1] ? cls.split('—')[1].trim().split(' ')[0].toLowerCase() : '';
+  if (subPart) {
+    for (var i = 0; i < ATT_DATA.length; i++) {
+      if (ATT_DATA[i].subject.toLowerCase().indexOf(subPart) !== -1) {
+        ATT_DATA[i].present += present;
+        ATT_DATA[i].total   += total;
+        ATT_DATA[i].pct = parseFloat((ATT_DATA[i].present / ATT_DATA[i].total * 100).toFixed(1));
+        break;
+      }
     }
   }
 
-  // ---- LOGOUT ----
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    document.getElementById('mainApp').classList.add('hidden');
-    document.getElementById('loginPage').classList.remove('hidden');
-    document.getElementById('loginUser').value = '';
-    document.getElementById('loginPass').value = '';
-  });
-
-  // ---- ROLE SWITCH ----
-  document.querySelectorAll('.strip-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.strip-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentUser = btn.dataset.switch;
-      setUser(currentUser);
-      goTo('dashboard');
-    });
-  });
-
-  // ---- BOTTOM NAV ----
-  document.querySelectorAll('.nav-item').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      goTo(btn.dataset.view);
-    });
-  });
-
-  function setUser(role) {
-    const u = users[role];
-    document.getElementById('headerName').textContent = u.name;
-    document.getElementById('headerRole').textContent = role.charAt(0).toUpperCase() + role.slice(1);
-    document.getElementById('headerAvatar').textContent = u.initial;
-    document.querySelectorAll('.strip-btn').forEach(b => b.classList.toggle('active', b.dataset.switch === role));
-    const isAdmin = role === 'admin';
-    document.getElementById('navLeave').classList.toggle('hidden', isAdmin);
-    document.getElementById('navWork').classList.toggle('hidden', isAdmin);
-    document.getElementById('workLabel').textContent = role === 'student' ? 'Assign' : 'Work';
+  // Build name tags
+  function tags(arr, bg, clr) {
+    return arr.map(function(n){ return '<span style="background:'+bg+';color:'+clr+';padding:.2rem .625rem;border-radius:2rem;font-size:.72rem;font-weight:700">'+n+'</span>'; }).join('');
   }
 
-  function goTo(view) {
-    document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
-    const area = document.getElementById('contentArea');
-    area.innerHTML = getView(view);
-    attachHandlers();
+  document.getElementById('stuList').innerHTML =
+    '<div style="background:rgba(0,200,83,.08);border:1px solid rgba(0,200,83,.25);border-radius:1rem;padding:1.25rem;margin-top:.5rem">'
+    + '<p style="color:var(--white);font-weight:800;font-size:1rem;text-align:center;margin-bottom:1rem">✅ Attendance Saved!</p>'
+    + '<div style="display:flex;justify-content:space-around;margin-bottom:1rem">'
+    + '<div style="text-align:center"><p style="font-size:2rem;font-weight:900;color:var(--green)">'+present+'</p><p style="font-size:.75rem;color:var(--gray)">Present</p></div>'
+    + '<div style="text-align:center"><p style="font-size:2rem;font-weight:900;color:var(--red)">'+absent+'</p><p style="font-size:.75rem;color:var(--gray)">Absent</p></div>'
+    + '<div style="text-align:center"><p style="font-size:2rem;font-weight:900;color:var(--orange)">'+pct+'%</p><p style="font-size:.75rem;color:var(--gray)">Rate</p></div>'
+    + '</div>'
+    + (pList.length ? '<p style="font-size:.75rem;font-weight:800;color:var(--green);margin-bottom:.375rem">PRESENT ('+pList.length+')</p><div style="display:flex;flex-wrap:wrap;gap:.375rem;margin-bottom:.75rem">'+tags(pList,'rgba(0,200,83,.12)','var(--green)')+'</div>' : '')
+    + (aList.length ? '<p style="font-size:.75rem;font-weight:800;color:var(--red);margin-bottom:.375rem">ABSENT ('+aList.length+')</p><div style="display:flex;flex-wrap:wrap;gap:.375rem">'+tags(aList,'rgba(255,59,48,.1)','var(--red)')+'</div>' : '')
+    + '</div>';
+
+  document.getElementById('attSubmitBtn').innerHTML =
+    '<button class="btn-ghost" style="margin-top:1rem;width:100%" onclick="goTo(\'attendance\')">Mark Another Class</button>';
+  toast('✅ Attendance for '+cls+' saved!');
+}
+
+// ======= LEAVE =======
+function vLeave() {
+  if (cur === 'student') {
+    var myLeaves = LEAVES.filter(function(l){ return l.student === USERS.student.name; });
+    var histRows = myLeaves.length === 0
+      ? '<p style="color:var(--gray);text-align:center;padding:1rem;font-size:.875rem">No leave applications yet</p>'
+      : myLeaves.slice().reverse().map(function(l) {
+          var pillCls = l.status==='Approved' ? 'pill-appr' : l.status==='Rejected' ? 'pill-rejt' : 'pill-pend';
+          return '<div class="list-item">'
+            + '<div class="li-head">'
+            + '<div><div class="li-title">'+l.type+'</div><div class="li-sub">'+l.from+' – '+l.to+'</div><div style="font-size:.75rem;color:var(--gray);margin-top:.2rem">'+l.reason+'</div></div>'
+            + '<span class="pill '+pillCls+'">'+l.status+'</span>'
+            + '</div></div>';
+        }).join('');
+
+    return '<div class="page-title">Leave Application</div>'
+      + '<div class="section-card">'
+      + '<div class="sec-title" style="margin-bottom:1rem">Apply for Leave</div>'
+      + '<div class="f-group"><label class="f-label">Leave Type</label>'
+      + '<select class="f-ctrl" id="lvType"><option value="">Select type...</option><option>Medical</option><option>Personal</option><option>Family Function</option><option>Other</option></select></div>'
+      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem" class="f-group">'
+      + '<div><label class="f-label">From Date</label><input type="date" class="f-ctrl" id="lvFrom"></div>'
+      + '<div><label class="f-label">To Date</label><input type="date" class="f-ctrl" id="lvTo"></div>'
+      + '</div>'
+      + '<div class="f-group"><label class="f-label">Reason</label><textarea class="f-ctrl" rows="3" id="lvReason" placeholder="Explain reason..."></textarea></div>'
+      + '<button class="btn-org" onclick="submitLeave()">Submit Application</button>'
+      + '</div>'
+      + '<div class="section-card"><div class="sec-title" style="margin-bottom:1rem">My Leave History</div>' + histRows + '</div>';
   }
 
-  function showToast(msg = 'Action completed successfully!') {
-    const t = document.getElementById('toast');
-    document.getElementById('toastMsg').textContent = msg;
-    t.classList.remove('hidden');
-    setTimeout(() => t.classList.add('hidden'), 3000);
+  // Faculty view
+  var pending = LEAVES.filter(function(l){ return l.status==='Pending'; });
+  var processed = LEAVES.filter(function(l){ return l.status!=='Pending'; });
+
+  var pendHtml = pending.length === 0
+    ? '<div class="section-card" style="text-align:center;padding:2rem"><div style="font-size:2.5rem;margin-bottom:.75rem">🎉</div><p style="color:var(--white);font-weight:800">All Cleared!</p><p style="color:var(--gray);font-size:.875rem;margin-top:.25rem">No pending leave requests</p></div>'
+    : pending.map(function(l,i) {
+        var realIdx = LEAVES.indexOf(l);
+        return '<div class="section-card" style="margin-bottom:.875rem">'
+          + '<div class="li-head" style="margin-bottom:.75rem">'
+          + '<div><div class="li-title">'+l.name+'</div><div class="li-sub">'+l.type+' · '+l.from+' to '+l.to+'</div><div style="font-size:.75rem;color:var(--gray);margin-top:.2rem">Reason: '+l.reason+'</div></div>'
+          + '<span class="pill pill-pend">Pending</span>'
+          + '</div>'
+          + '<div class="btn-row">'
+          + '<button class="btn-grn" onclick="approveLeave('+realIdx+',true)">✓ Approve</button>'
+          + '<button class="btn-red" onclick="approveLeave('+realIdx+',false)">✗ Reject</button>'
+          + '</div></div>';
+      }).join('');
+
+  var procHtml = processed.length === 0
+    ? '<p style="color:var(--gray);font-size:.875rem;text-align:center;padding:.5rem 0">No processed requests yet</p>'
+    : processed.map(function(l) {
+        var pillCls = l.status==='Approved' ? 'pill-appr' : 'pill-rejt';
+        return '<div class="list-item"><div class="li-head"><div><div class="li-title">'+l.name+'</div><div class="li-sub">'+l.type+' · '+l.from+' to '+l.to+'</div></div><span class="pill '+pillCls+'">'+l.status+'</span></div></div>';
+      }).join('');
+
+  return '<div class="page-title">Leave Requests</div>'
+    + pendHtml
+    + '<div class="section-card"><div class="sec-title" style="margin-bottom:1rem">Processed Requests</div>' + procHtml + '</div>';
+}
+
+function submitLeave() {
+  var type   = document.getElementById('lvType').value;
+  var from   = document.getElementById('lvFrom').value;
+  var to     = document.getElementById('lvTo').value;
+  var reason = document.getElementById('lvReason').value.trim();
+  if (!type || type === 'Select type...' || type === '') { toast('⚠️ Please select a leave type'); return; }
+  if (!from)   { toast('⚠️ Please select From date'); return; }
+  if (!to)     { toast('⚠️ Please select To date'); return; }
+  if (!reason) { toast('⚠️ Please enter a reason'); return; }
+  var fromFmt = new Date(from).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  var toFmt   = new Date(to).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  LEAVES.push({student:USERS.student.name, name:USERS.student.name, type:type, from:fromFmt, to:toFmt, reason:reason, status:'Pending'});
+  toast('✅ Leave submitted! Awaiting teacher approval.');
+  goTo('leave');
+}
+
+function approveLeave(idx, approve) {
+  LEAVES[idx].status = approve ? 'Approved' : 'Rejected';
+  toast(approve ? '✅ Leave approved for '+LEAVES[idx].name : '❌ Leave rejected for '+LEAVES[idx].name);
+  goTo('leave');
+}
+
+// ======= WORKLOAD =======
+function vWorkload() {
+  if (cur === 'student') {
+    return '<div class="page-title">Assignments</div>'
+      + ASSIGNMENTS.map(function(a,i) {
+          var borderClr = a.status==='Pending' ? 'var(--orange)' : 'var(--green)';
+          var pillCls   = a.status==='Pending' ? 'pill-pend' : 'pill-subm';
+          return '<div class="list-item" style="border-left:3px solid '+borderClr+';margin-bottom:.875rem">'
+            + '<div class="li-head">'
+            + '<div style="flex:1"><div class="li-title">'+a.title+'</div><div class="li-sub">'+a.subject+' · Due: '+a.due+'</div><div style="font-size:.75rem;color:var(--gray);margin-top:.375rem">'+a.desc+'</div></div>'
+            + '<span class="pill '+pillCls+'">'+a.status+'</span>'
+            + '</div>'
+            + (a.status==='Pending' ? '<button class="btn-org" style="margin-top:.875rem" onclick="submitAssign('+i+')">⬆ Submit Work</button>' : '')
+            + '</div>';
+        }).join('');
   }
 
-  function getView(view) {
-    if (view === 'dashboard') return getDashboard();
-    if (view === 'notices')   return getNotices();
-    if (view === 'attendance') return getAttendance();
-    if (view === 'leave')     return getLeave();
-    if (view === 'workload')  return getWorkload();
-    return '';
-  }
+  // Faculty
+  return '<div class="page-title">Manage Assignments</div>'
+    + '<div class="section-card">'
+    + '<div class="sec-title" style="margin-bottom:1rem">Create New Assignment</div>'
+    + '<div class="f-group"><label class="f-label">Title</label><input type="text" class="f-ctrl" placeholder="Assignment title..."></div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem" class="f-group">'
+    + '<div><label class="f-label">Subject</label><select class="f-ctrl"><option>Select...</option><option>Data Structures</option><option>Database Mgmt</option><option>Web Development</option></select></div>'
+    + '<div><label class="f-label">Deadline</label><input type="date" class="f-ctrl"></div>'
+    + '</div>'
+    + '<button class="btn-org" onclick="toast(\'✅ Assignment published!\')">Publish Assignment</button>'
+    + '</div>'
+    + '<div class="section-card"><div class="sec-title" style="margin-bottom:1rem">Active Assignments</div>'
+    + ASSIGNMENTS.map(function(a) {
+        return '<div class="list-item"><div class="li-head"><div><div class="li-title">'+a.title+'</div><div class="li-sub">'+a.subject+' · Due: '+a.due+'</div></div></div>'
+          + '<div style="display:flex;gap:1rem;margin-top:.5rem;font-size:.8rem">'
+          + '<span style="color:var(--gray)">45 assigned</span>'
+          + '<span style="color:var(--green)">15 submitted</span>'
+          + '<span style="color:var(--orange)">30 pending</span>'
+          + '</div></div>';
+      }).join('')
+    + '</div>';
+}
 
-  // ---- DASHBOARD ----
-  function getDashboard() {
-    if (currentUser === 'student') return `
-      <div class="hero-card">
-        <p class="hero-label">Overall Attendance</p>
-        <p class="hero-value">88.8%</p>
-        <p class="hero-sub">112 / 126 classes attended</p>
-      </div>
+function submitAssign(i) {
+  ASSIGNMENTS[i].status = 'Submitted';
+  toast('✅ "'+ASSIGNMENTS[i].title+'" submitted!');
+  goTo('workload');
+}
 
-      <div class="stats-row">
-        <div class="stat-card" style="--accent-color:rgba(255,59,48,0.12); --accent-stroke:#FF3B30;">
-          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
-          <p class="stat-value">2</p>
-          <p class="stat-label">Pending Tasks</p>
-        </div>
-        <div class="stat-card" style="--accent-color:rgba(0,200,83,0.12); --accent-stroke:#00C853;">
-          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div>
-          <p class="stat-value">4</p>
-          <p class="stat-label">New Notices</p>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <div class="section-header">
-          <p class="section-title">Quick Access</p>
-        </div>
-        <div class="quick-grid">
-          <button class="quick-btn" onclick="goTo('attendance')">
-            <div class="quick-icon" style="background:rgba(0,200,83,0.12);">
-              <svg viewBox="0 0 24 24" style="stroke:#00C853;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <span class="quick-label">Attendance</span>
-          </button>
-          <button class="quick-btn" onclick="goTo('leave')">
-            <div class="quick-icon" style="background:rgba(255,214,0,0.12);">
-              <svg viewBox="0 0 24 24" style="stroke:#FFD600;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </div>
-            <span class="quick-label">Apply Leave</span>
-          </button>
-          <button class="quick-btn" onclick="goTo('workload')">
-            <div class="quick-icon" style="background:rgba(255,107,26,0.12);">
-              <svg viewBox="0 0 24 24" style="stroke:var(--orange);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
-            </div>
-            <span class="quick-label">Assignments</span>
-          </button>
-          <button class="quick-btn" onclick="goTo('notices')">
-            <div class="quick-icon" style="background:rgba(99,102,241,0.15);">
-              <svg viewBox="0 0 24 24" style="stroke:#818cf8;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
-            </div>
-            <span class="quick-label">Notices</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <div class="section-header">
-          <p class="section-title">Latest Notices</p>
-          <button class="see-all" onclick="goTo('notices')">See All</button>
-        </div>
-        ${notices.slice(0,3).map(n => noticeRow(n)).join('')}
-      </div>`;
-
-    if (currentUser === 'faculty') return `
-      <div class="stats-row three">
-        <div class="stat-card" style="--accent-color:rgba(255,107,26,0.12); --accent-stroke:var(--orange);">
-          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-          <p class="stat-value">3</p><p class="stat-label">Classes Today</p>
-        </div>
-        <div class="stat-card" style="--accent-color:rgba(255,59,48,0.12); --accent-stroke:#FF3B30;">
-          <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div>
-          <p class="stat-value">2</p><p class="stat-label">Leave Requests</p>
-        </div>
-        <div class="stat-card" style="--accent-color:rgba(0,200,83,0.12); --accent-stroke:#00C853;">
-          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <p class="stat-value">138</p><p class="stat-label">Students</p>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <div class="section-header"><p class="section-title">Today's Schedule</p></div>
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="time">9:00</div><div class="ampm">AM</div></div>
-          <div class="schedule-info"><p class="schedule-name">Data Structures - CSE-3A</p><p class="schedule-room">Room 301</p></div>
-          <button class="btn-ghost" style="padding:0.4rem 0.75rem;font-size:0.75rem;" onclick="goTo('attendance')">Mark</button>
-        </div>
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="time">11:00</div><div class="ampm">AM</div></div>
-          <div class="schedule-info"><p class="schedule-name">Database Mgmt - CSE-3B</p><p class="schedule-room">Room 302</p></div>
-          <span class="status-pill pill-pending" style="font-size:0.7rem;">Upcoming</span>
-        </div>
-        <div class="schedule-item">
-          <div class="schedule-time"><div class="time">2:00</div><div class="ampm">PM</div></div>
-          <div class="schedule-info"><p class="schedule-name">Web Dev - CSE-3A</p><p class="schedule-room">Lab 1</p></div>
-          <span class="status-pill pill-pending" style="font-size:0.7rem;">Upcoming</span>
-        </div>
-      </div>`;
-
-    // Admin
-    return `
-      <div class="stats-row four">
-        <div class="stat-card" style="--accent-color:rgba(255,107,26,0.12); --accent-stroke:var(--orange);">
-          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-          <p class="stat-value">2,847</p><p class="stat-label">Students</p>
-        </div>
-        <div class="stat-card" style="--accent-color:rgba(0,200,83,0.12); --accent-stroke:#00C853;">
-          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
-          <p class="stat-value">187</p><p class="stat-label">Faculty</p>
-        </div>
-        <div class="stat-card" style="--accent-color:rgba(99,102,241,0.15); --accent-stroke:#818cf8;">
-          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div>
-          <p class="stat-value">24</p><p class="stat-label">Notices</p>
-        </div>
-        <div class="stat-card" style="--accent-color:rgba(255,214,0,0.12); --accent-stroke:#FFD600;">
-          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
-          <p class="stat-value">62%</p><p class="stat-label">Paper Saved</p>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <div class="section-header"><p class="section-title">Platform Analytics</p></div>
-        <div class="analytics-item">
-          <div class="analytics-header"><span>Monthly Active Users</span><span>2,134 / 3,034 — 70.3%</span></div>
-          <div class="progress"><div class="progress-bar" style="width:70.3%;background:var(--orange);"></div></div>
-        </div>
-        <div class="analytics-item">
-          <div class="analytics-header"><span>Digital Notices Published</span><span>96 / 120 — 80%</span></div>
-          <div class="progress"><div class="progress-bar" style="width:80%;background:var(--green);"></div></div>
-        </div>
-        <div class="analytics-item">
-          <div class="analytics-header"><span>Digital Attendance</span><span>163 / 210 — 77.6%</span></div>
-          <div class="progress"><div class="progress-bar" style="width:77.6%;background:#818cf8;"></div></div>
-        </div>
-        <div class="analytics-item">
-          <div class="analytics-header"><span>Leave Processing Time</span><span>50% reduction</span></div>
-          <div class="progress"><div class="progress-bar" style="width:50%;background:var(--yellow);"></div></div>
-        </div>
-      </div>`;
-  }
-
-  function noticeRow(n) {
-    const cls = { Exam: 'dot-exam nb-exam', Events: 'dot-events nb-events', Academic: 'dot-academic nb-academic' }[n.category] || 'dot-academic nb-academic';
-    const [dotCls, badgeCls] = cls.split(' ');
-    const emojis = { Exam: '📋', Events: '🎉', Academic: '📚' };
-    return `<div class="notice-item">
-      <div class="notice-dot ${dotCls}">${emojis[n.category] || '📌'}</div>
-      <div class="notice-info">
-        <p class="notice-name">${n.title}</p>
-        <p class="notice-meta">${n.author} · ${n.date}</p>
-      </div>
-      <span class="notice-badge ${badgeCls}">${n.category}</span>
-    </div>`;
-  }
-
-  // ---- NOTICES ----
-  function getNotices() {
-    const postBtn = currentUser !== 'student' ? `<button class="btn-orange" style="margin-bottom:1rem;" onclick="showToast('Notice posted successfully!')">+ Post New Notice</button>` : '';
-    return `
-      <div class="section-header" style="margin-bottom:0.5rem;">
-        <p class="page-title">Notices</p>
-      </div>
-      ${postBtn}
-      <div style="display:flex;gap:0.5rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:0.25rem;">
-        <button class="strip-btn active" style="border-radius:2rem;">All</button>
-        <button class="strip-btn" style="border-radius:2rem;">Exam</button>
-        <button class="strip-btn" style="border-radius:2rem;">Events</button>
-        <button class="strip-btn" style="border-radius:2rem;">Academic</button>
-      </div>
-      <div class="section-card">
-        ${notices.map(n => noticeRow(n)).join('')}
-      </div>`;
-  }
-
-  // ---- ATTENDANCE ----
-  function getAttendance() {
-    if (currentUser === 'student') return `
-      <p class="page-title">My Attendance</p>
-      <div class="hero-card">
-        <p class="hero-label">Overall Attendance</p>
-        <p class="hero-value">88.8%</p>
-        <p class="hero-sub">112 / 126 classes · Semester 6</p>
-      </div>
-      ${attendance.map(a => {
-        const color = a.pct >= 85 ? 'var(--green)' : a.pct >= 75 ? 'var(--yellow)' : 'var(--red)';
-        return `<div class="att-item">
-          <div class="att-header">
-            <span class="att-subject">${a.subject}</span>
-            <span class="att-pct" style="color:${color}">${a.pct}%</span>
-          </div>
-          <p class="att-meta">${a.present} / ${a.total} classes attended</p>
-          <div class="progress"><div class="progress-bar" style="width:${a.pct}%;background:${color};"></div></div>
-        </div>`;
-      }).join('')}
-      <button class="btn-orange" onclick="showToast('Attendance report downloaded!')">⬇ Download PDF Report</button>`;
-
-    return `
-      <p class="page-title">Mark Attendance</p>
-      <div class="section-card">
-        <div class="form-section">
-          <label class="form-lbl">Select Class</label>
-          <select class="form-ctrl" id="classSelect" onchange="renderStudents()">
-            <option value="">Choose a class...</option>
-            <option>CSE-3A — Data Structures</option>
-            <option>CSE-3B — Database Management</option>
-            <option>CSE-3A — Web Development</option>
-          </select>
-        </div>
-        <div class="form-section">
-          <label class="form-lbl">Date</label>
-          <input type="date" class="form-ctrl" value="2024-02-16">
-        </div>
-        <div id="studentsList"></div>
-        <div id="submitAttBtn"></div>
-      </div>`;
-  }
-
-  function renderStudents() {
-    const sel = document.getElementById('classSelect');
-    if (!sel || !sel.value) return;
-    const names = ['Aarav Sharma','Priya Singh','Rohit Patel','Neha Gupta','Kiran Kumar','Sneha Reddy','Arjun Nair','Pooja Verma'];
-    document.getElementById('studentsList').innerHTML = `
-      <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
-        <button class="btn-green" style="flex:1;padding:0.5rem;" onclick="showToast('All marked Present!')">✓ All Present</button>
-        <button class="btn-ghost" style="flex:1;padding:0.5rem;" onclick="showToast('All marked Absent!')">✗ All Absent</button>
-      </div>
-      ${names.map((n,i) => `
-        <div class="mark-row">
-          <div class="student-info">
-            <div class="student-name">${n}</div>
-            <div class="roll-no">Roll: 21010${i+1}</div>
-          </div>
-          <div class="mark-btns">
-            <button class="mark-p" onclick="toggleMark(this,'p')">P</button>
-            <button class="mark-a" onclick="toggleMark(this,'a')">A</button>
-          </div>
-        </div>`).join('')}`;
-    document.getElementById('submitAttBtn').innerHTML = `<button class="btn-orange" style="margin-top:1rem;" onclick="showToast('Attendance submitted!')">Submit Attendance</button>`;
-  }
-
-  function toggleMark(btn, type) {
-    const row = btn.closest('.mark-btns');
-    row.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-  }
-
-  // ---- LEAVE ----
-  function getLeave() {
-    if (currentUser === 'student') return `
-      <p class="page-title">Leave Application</p>
-      <div class="section-card">
-        <p class="section-title" style="margin-bottom:1rem;">Apply for Leave</p>
-        <div class="form-section">
-          <label class="form-lbl">Leave Type</label>
-          <select class="form-ctrl">
-            <option>Select type...</option>
-            <option>Medical</option>
-            <option>Personal</option>
-            <option>Family Function</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;" class="form-section">
-          <div>
-            <label class="form-lbl">From Date</label>
-            <input type="date" class="form-ctrl">
-          </div>
-          <div>
-            <label class="form-lbl">To Date</label>
-            <input type="date" class="form-ctrl">
-          </div>
-        </div>
-        <div class="form-section">
-          <label class="form-lbl">Reason</label>
-          <textarea class="form-ctrl" rows="3" placeholder="Explain reason for leave..."></textarea>
-        </div>
-        <button class="btn-orange" onclick="showToast('Leave application submitted!')">Submit Application</button>
-      </div>
-
-      <div class="section-card">
-        <p class="section-title" style="margin-bottom:1rem;">My Leave History</p>
-        <div class="list-item">
-          <div class="list-item-header">
-            <div><p class="list-item-title">Medical Leave</p><p class="list-item-sub">Jan 15 – Jan 17, 2024</p></div>
-            <span class="status-pill pill-approved">Approved</span>
-          </div>
-          <p style="font-size:0.8rem;color:var(--gray);">Fever and cold</p>
-        </div>
-        <div class="list-item">
-          <div class="list-item-header">
-            <div><p class="list-item-title">Personal Leave</p><p class="list-item-sub">Feb 10 – Feb 10, 2024</p></div>
-            <span class="status-pill pill-pending">Pending</span>
-          </div>
-          <p style="font-size:0.8rem;color:var(--gray);">Personal work</p>
-        </div>
-      </div>`;
-
-    return `
-      <p class="page-title">Leave Requests</p>
-      ${leaves.filter(l => l.status === 'Pending').map(l => `
-        <div class="section-card" style="margin-bottom:0.875rem;">
-          <div class="list-item-header" style="margin-bottom:0.75rem;">
-            <div>
-              <p class="list-item-title">${l.name}</p>
-              <p class="list-item-sub">${l.type} · ${l.from} to ${l.to}</p>
-            </div>
-            <span class="status-pill pill-pending">${l.status}</span>
-          </div>
-          <div class="btn-row">
-            <button class="btn-green" onclick="showToast('Leave approved for ${l.name}!')">✓ Approve</button>
-            <button class="btn-red" onclick="showToast('Leave rejected!')">✗ Reject</button>
-          </div>
-        </div>`).join('')}
-      <div class="section-card">
-        <p class="section-title" style="margin-bottom:1rem;">Recently Processed</p>
-        ${leaves.filter(l => l.status === 'Approved').map(l => `
-          <div class="list-item">
-            <div class="list-item-header">
-              <div><p class="list-item-title">${l.name}</p><p class="list-item-sub">${l.type} · ${l.from} to ${l.to}</p></div>
-              <span class="status-pill pill-approved">Approved</span>
-            </div>
-          </div>`).join('')}
-      </div>`;
-  }
-
-  // ---- WORKLOAD ----
-  function getWorkload() {
-    if (currentUser === 'student') return `
-      <p class="page-title">Assignments</p>
-      ${assignments.map(a => `
-        <div class="list-item" style="border-left:3px solid ${a.status === 'Pending' ? 'var(--orange)' : 'var(--green)'};margin-bottom:0.875rem;">
-          <div class="list-item-header">
-            <div style="flex:1;">
-              <p class="list-item-title">${a.title}</p>
-              <p class="list-item-sub">${a.subject} · Due: ${a.due}</p>
-              <p style="font-size:0.75rem;color:var(--gray);margin-top:0.375rem;">${a.desc}</p>
-            </div>
-            <span class="status-pill ${a.status === 'Pending' ? 'pill-pending' : 'pill-submitted'}">${a.status}</span>
-          </div>
-          ${a.status === 'Pending' ? `<button class="btn-orange" style="margin-top:0.875rem;" onclick="showToast('Assignment submitted!')">⬆ Submit Work</button>` : ''}
-        </div>`).join('')}`;
-
-    return `
-      <p class="page-title">Manage Assignments</p>
-      <div class="section-card" style="margin-bottom:1rem;">
-        <p class="section-title" style="margin-bottom:1rem;">Create New Assignment</p>
-        <div class="form-section">
-          <label class="form-lbl">Title</label>
-          <input type="text" class="form-ctrl" placeholder="Assignment title...">
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;" class="form-section">
-          <div>
-            <label class="form-lbl">Subject</label>
-            <select class="form-ctrl">
-              <option>Select...</option>
-              <option>Data Structures</option>
-              <option>Database Mgmt</option>
-              <option>Web Development</option>
-            </select>
-          </div>
-          <div>
-            <label class="form-lbl">Deadline</label>
-            <input type="date" class="form-ctrl">
-          </div>
-        </div>
-        <button class="btn-orange" onclick="showToast('Assignment published!')">Publish Assignment</button>
-      </div>
-
-      <div class="section-card">
-        <p class="section-title" style="margin-bottom:1rem;">Active Assignments</p>
-        ${assignments.map(a => `
-          <div class="list-item">
-            <div class="list-item-header">
-              <div><p class="list-item-title">${a.title}</p><p class="list-item-sub">${a.subject} · Due: ${a.due}</p></div>
-            </div>
-            <div style="display:flex;gap:1rem;font-size:0.75rem;margin-top:0.5rem;">
-              <span style="color:var(--gray);">45 assigned</span>
-              <span style="color:var(--green);">15 submitted</span>
-              <span style="color:var(--orange);">30 pending</span>
-            </div>
-          </div>`).join('')}
-      </div>`;
-  }
-
-  function attachHandlers() {}
-
-  // Init
-  window.onload = () => {
-    document.getElementById('loginUser').focus();
-  };
+// ======= INIT =======
+window.onload = function() {
+  document.getElementById('loginUser').focus();
+};
 </script>
 </body>
 </html>
