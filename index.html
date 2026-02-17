@@ -1,1179 +1,1233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Campus Management Platform</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f9fafb;
-            min-height: 100vh;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* Login Page Styles */
-        .login-container {
-            min-height: 100vh;
-            background: linear-gradient(to bottom right, #3b82f6, #2563eb, #9333ea);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .login-card {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            width: 100%;
-            max-width: 28rem;
-            overflow: hidden;
-        }
-
-        .login-header {
-            background: linear-gradient(to right, #2563eb, #1d4ed8);
-            padding: 2rem;
-            color: white;
-            text-align: center;
-        }
-
-        .login-header svg {
-            width: 4rem;
-            height: 4rem;
-            margin: 0 auto 1rem;
-        }
-
-        .login-header h1 {
-            font-size: 1.875rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .login-header p {
-            color: #bfdbfe;
-        }
-
-        .login-form {
-            padding: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 0.5rem;
-        }
-
-        .role-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-        }
-
-        .role-btn {
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .role-btn.active {
-            background-color: #2563eb;
-            color: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .role-btn:not(.active) {
-            background-color: #f3f4f6;
-            color: #374151;
-        }
-
-        .role-btn:not(.active):hover {
-            background-color: #e5e7eb;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .login-btn {
-            width: 100%;
-            background-color: #2563eb;
-            color: white;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.2s;
-        }
-
-        .login-btn:hover {
-            background-color: #1d4ed8;
-        }
-
-        .credentials-box {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background-color: #eff6ff;
-            border-radius: 0.5rem;
-        }
-
-        .credentials-box p {
-            font-size: 0.75rem;
-            color: #374151;
-            margin-bottom: 0.5rem;
-        }
-
-        .credentials-box p:first-child {
-            font-weight: 600;
-        }
-
-        .credentials-box span {
-            font-weight: 500;
-        }
-
-        /* Header Styles */
-        .header {
-            background: linear-gradient(to right, #2563eb, #1d4ed8);
-            color: white;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-content {
-            max-width: 80rem;
-            margin: 0 auto;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .header-title h1 {
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
-
-        .header-title p {
-            font-size: 0.875rem;
-            color: #bfdbfe;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-info {
-            text-align: right;
-        }
-
-        .user-info p:first-child {
-            font-weight: 500;
-        }
-
-        .user-info p:last-child {
-            font-size: 0.875rem;
-            color: #bfdbfe;
-            text-transform: capitalize;
-        }
-
-        .logout-btn {
-            padding: 0.5rem;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            border-radius: 0.5rem;
-            transition: background-color 0.2s;
-        }
-
-        .logout-btn:hover {
-            background-color: rgba(29, 78, 216, 0.5);
-        }
-
-        /* Role Switcher */
-        .role-switcher {
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .role-switcher-content {
-            max-width: 80rem;
-            margin: 0 auto;
-            padding: 0.75rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .role-switcher span {
-            font-size: 0.875rem;
-            color: #6b7280;
-        }
-
-        .role-switch-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .role-switch-btn.active {
-            background-color: #2563eb;
-            color: white;
-        }
-
-        .role-switch-btn:not(.active) {
-            background-color: #f3f4f6;
-            color: #374151;
-        }
-
-        .role-switch-btn:not(.active):hover {
-            background-color: #e5e7eb;
-        }
-
-        /* Navigation */
-        .navigation {
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .nav-content {
-            max-width: 80rem;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            gap: 0.25rem;
-        }
-
-        .nav-btn {
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid transparent;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #6b7280;
-            transition: color 0.2s;
-        }
-
-        .nav-btn:hover {
-            color: #111827;
-        }
-
-        .nav-btn.active {
-            color: #2563eb;
-            border-bottom-color: #2563eb;
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 80rem;
-            margin: 0 auto;
-            padding: 1.5rem 1rem;
-        }
-
-        /* Cards */
-        .card {
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-card {
-            background: linear-gradient(to bottom right, var(--from), var(--to));
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            color: white;
-        }
-
-        .stat-card-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .stat-label {
-            font-size: 0.875rem;
-            opacity: 0.9;
-        }
-
-        .stat-value {
-            font-size: 1.875rem;
-            font-weight: bold;
-            margin-top: 0.5rem;
-        }
-
-        /* Buttons */
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background-color: #2563eb;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #1d4ed8;
-        }
-
-        .btn-secondary {
-            background-color: #f3f4f6;
-            color: #374151;
-        }
-
-        .btn-secondary:hover {
-            background-color: #e5e7eb;
-        }
-
-        .btn-green {
-            background-color: #16a34a;
-            color: white;
-        }
-
-        .btn-green:hover {
-            background-color: #15803d;
-        }
-
-        .btn-red {
-            background-color: #dc2626;
-            color: white;
-        }
-
-        .btn-red:hover {
-            background-color: #b91c1c;
-        }
-
-        /* Grid Layouts */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        /* Notice Styles */
-        .notice-item {
-            padding: 1rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .notice-item:hover {
-            background-color: #f9fafb;
-        }
-
-        .notice-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .notice-title {
-            font-weight: 500;
-        }
-
-        .notice-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .badge-exam {
-            background-color: #fee2e2;
-            color: #991b1b;
-        }
-
-        .badge-events {
-            background-color: #dbeafe;
-            color: #1e40af;
-        }
-
-        .badge-academic {
-            background-color: #dcfce7;
-            color: #166534;
-        }
-
-        .notice-date {
-            font-size: 0.875rem;
-            color: #6b7280;
-        }
-
-        /* Attendance Styles */
-        .attendance-item {
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .attendance-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .attendance-percentage {
-            font-weight: bold;
-            font-size: 1.125rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 0.5rem;
-            background-color: #e5e7eb;
-            border-radius: 9999px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            transition: width 0.3s;
-        }
-
-        /* Spacing Utilities */
-        .mb-1 { margin-bottom: 0.25rem; }
-        .mb-2 { margin-bottom: 0.5rem; }
-        .mb-3 { margin-bottom: 0.75rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-6 { margin-bottom: 1.5rem; }
-        .mt-2 { margin-top: 0.5rem; }
-        .mt-4 { margin-top: 1rem; }
-        .mt-6 { margin-top: 1.5rem; }
-
-        .text-center { text-align: center; }
-        .text-sm { font-size: 0.875rem; }
-        .text-xs { font-size: 0.75rem; }
-        .font-semibold { font-weight: 600; }
-        .font-bold { font-weight: 700; }
-
-        .text-gray-500 { color: #6b7280; }
-        .text-gray-600 { color: #4b5563; }
-        .text-gray-700 { color: #374151; }
-
-        /* Quick Action Buttons */
-        .quick-action {
-            padding: 1rem;
-            border: 2px solid;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            transition: background-color 0.2s;
-        }
-
-        .quick-action:hover {
-            opacity: 0.9;
-        }
-
-        /* SVG Icons */
-        svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            background-color: #16a34a;
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            z-index: 1000;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .grid-2, .grid-3, .grid-4 {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>DigiCampus</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --navy2: #122040;
+    --navy3: #1a2f55;
+    --orange: #FF6B1A;
+    --orange2: #ff8c4a;
+    --green: #00C853;
+    --red: #FF3B30;
+    --yellow: #FFD600;
+    --white: #FFFFFF;
+    --gray: #a0aec0;
+    --card: #162035;
+    --card2: #1e2d4a;
+    --text: #e2e8f0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Nunito', sans-serif; background: var(--navy); color: var(--text); min-height: 100vh; max-width: 480px; margin: 0 auto; position: relative; overflow-x: hidden; }
+
+  /* ===== HIDDEN ===== */
+  .hidden { display: none !important; }
+
+  /* ===== LOGIN PAGE ===== */
+  #loginPage {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0A1628 0%, #1a2f55 50%, #0A1628 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #loginPage::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(255,107,26,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  #loginPage::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(0,200,83,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .login-logo {
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .login-logo .logo-ring {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), #ff3d00);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+    box-shadow: 0 0 0 8px rgba(255,107,26,0.15), 0 0 0 16px rgba(255,107,26,0.07);
+  }
+  .login-logo .logo-ring svg { width: 44px; height: 44px; fill: white; }
+  .login-logo h1 { font-size: 2rem; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+  .login-logo p { font-size: 0.875rem; color: var(--gray); margin-top: 0.25rem; letter-spacing: 2px; text-transform: uppercase; }
+
+  .login-card {
+    background: var(--card);
+    border-radius: 1.5rem;
+    padding: 1.75rem;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative; z-index: 1;
+  }
+
+  .role-tabs {
+    display: flex;
+    background: var(--navy);
+    border-radius: 0.75rem;
+    padding: 4px;
+    margin-bottom: 1.5rem;
+    gap: 4px;
+  }
+  .role-tab {
+    flex: 1;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 0.6rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    background: transparent;
+    color: var(--gray);
+  }
+  .role-tab.active {
+    background: var(--orange);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255,107,26,0.4);
+  }
+
+  .input-group { margin-bottom: 1.25rem; }
+  .input-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+  .input-wrap { position: relative; }
+  .input-wrap svg { position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--gray); stroke: currentColor; fill: none; stroke-width: 2; }
+  .input-field {
+    width: 100%;
+    background: var(--navy);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    padding: 0.75rem 0.875rem 0.75rem 2.75rem;
+    color: var(--white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: border-color 0.2s;
+  }
+  .input-field:focus { outline: none; border-color: var(--orange); }
+  .input-field::placeholder { color: rgba(255,255,255,0.2); font-weight: 400; }
+
+  .login-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--orange), #e55a10);
+    color: white;
+    border: none;
+    border-radius: 0.875rem;
+    padding: 0.9rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255,107,26,0.4);
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .login-btn:active { transform: scale(0.97); }
+
+  .creds-box {
+    margin-top: 1.25rem;
+    background: rgba(255,107,26,0.08);
+    border: 1px solid rgba(255,107,26,0.2);
+    border-radius: 0.75rem;
+    padding: 1rem;
+  }
+  .creds-box p { font-size: 0.75rem; color: var(--orange2); font-weight: 700; margin-bottom: 0.5rem; }
+  .creds-box .cred-row { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+  .creds-box .cred-row span:first-child { color: var(--gray); font-size: 0.8rem; }
+  .creds-box .cred-row span:last-child { color: var(--white); font-size: 0.8rem; font-weight: 700; }
+
+  /* ===== MAIN APP ===== */
+  #mainApp { display: flex; flex-direction: column; min-height: 100vh; }
+
+  /* Top Header */
+  .app-header {
+    background: var(--navy2);
+    padding: 1rem 1.25rem 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .app-header-left { display: flex; align-items: center; gap: 0.75rem; }
+  .app-header-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), #e55a10);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1rem; color: white;
+    box-shadow: 0 4px 10px rgba(255,107,26,0.35);
+  }
+  .app-header-info h3 { font-size: 0.9375rem; font-weight: 800; color: var(--white); line-height: 1.2; }
+  .app-header-info p { font-size: 0.75rem; color: var(--orange); font-weight: 700; text-transform: capitalize; }
+  .app-header-right { display: flex; align-items: center; gap: 0.5rem; }
+  .icon-btn {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .icon-btn:hover { background: rgba(255,255,255,0.12); }
+  .icon-btn svg { width: 18px; height: 18px; stroke: var(--gray); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Role Switcher Strip */
+  .role-strip {
+    background: var(--navy);
+    padding: 0.6rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .role-strip::-webkit-scrollbar { display: none; }
+  .role-strip span { font-size: 0.7rem; color: var(--gray); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+  .strip-btn {
+    padding: 0.3rem 0.875rem;
+    border-radius: 2rem;
+    border: 1.5px solid rgba(255,255,255,0.1);
+    background: transparent;
+    color: var(--gray);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .strip-btn.active { background: var(--orange); border-color: var(--orange); color: white; box-shadow: 0 3px 10px rgba(255,107,26,0.3); }
+
+  /* Content Area */
+  .content { flex: 1; padding: 1rem 1.25rem 5.5rem; overflow-y: auto; }
+
+  /* Bottom Navigation */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    background: var(--card);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    z-index: 200;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0.25rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    gap: 0.25rem;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .nav-icon {
+    width: 42px; height: 42px;
+    border-radius: 0.875rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s;
+  }
+  .nav-icon svg { width: 20px; height: 20px; stroke: var(--gray); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-label { font-size: 0.6875rem; font-weight: 700; color: var(--gray); transition: color 0.2s; }
+  .nav-item.active .nav-icon { background: rgba(255,107,26,0.15); }
+  .nav-item.active .nav-icon svg { stroke: var(--orange); }
+  .nav-item.active .nav-label { color: var(--orange); }
+  .nav-item.admin-hidden { display: none; }
+
+  /* ===== COMPONENTS ===== */
+
+  /* Page Title */
+  .page-title { font-size: 1.5rem; font-weight: 900; color: var(--white); margin-bottom: 1.25rem; }
+
+  /* Stats Row */
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; margin-bottom: 1.25rem; }
+  .stats-row.three { grid-template-columns: 1fr 1fr 1fr; }
+  .stats-row.four { grid-template-columns: 1fr 1fr; }
+
+  .stat-card {
+    background: var(--card2);
+    border-radius: 1.25rem;
+    padding: 1.125rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--accent-color, rgba(255,107,26,0.12));
+  }
+  .stat-icon {
+    width: 38px; height: 38px;
+    border-radius: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.75rem;
+    background: var(--accent-color, rgba(255,107,26,0.15));
+  }
+  .stat-icon svg { width: 20px; height: 20px; stroke: var(--accent-stroke, var(--orange)); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .stat-value { font-size: 1.625rem; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 0.25rem; }
+  .stat-label { font-size: 0.75rem; color: var(--gray); font-weight: 600; }
+
+  /* Cards */
+  .section-card {
+    background: var(--card);
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .section-title { font-size: 1rem; font-weight: 800; color: var(--white); }
+  .see-all { font-size: 0.8rem; font-weight: 700; color: var(--orange); background: none; border: none; cursor: pointer; }
+
+  /* Notice Item */
+  .notice-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .notice-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .notice-dot {
+    width: 38px; height: 38px;
+    border-radius: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  .dot-exam { background: rgba(255,59,48,0.15); color: #FF3B30; }
+  .dot-events { background: rgba(0,200,83,0.15); color: #00C853; }
+  .dot-academic { background: rgba(255,214,0,0.15); color: #FFD600; }
+  .notice-info { flex: 1; }
+  .notice-name { font-size: 0.875rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+  .notice-meta { font-size: 0.75rem; color: var(--gray); }
+  .notice-badge {
+    padding: 0.2rem 0.625rem;
+    border-radius: 2rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .nb-exam { background: rgba(255,59,48,0.15); color: #FF3B30; }
+  .nb-events { background: rgba(0,200,83,0.15); color: #00C853; }
+  .nb-academic { background: rgba(255,214,0,0.15); color: #FFD600; }
+
+  /* Quick Actions */
+  .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+  .quick-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+  .quick-icon {
+    width: 52px; height: 52px;
+    border-radius: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--card2);
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform 0.2s;
+  }
+  .quick-icon:active { transform: scale(0.93); }
+  .quick-icon svg { width: 24px; height: 24px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+  .quick-label { font-size: 0.7rem; font-weight: 700; color: var(--gray); text-align: center; }
+
+  /* Balance / Hero Card */
+  .hero-card {
+    background: linear-gradient(135deg, #1a2f55, #0f1f3e);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid rgba(255,107,26,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,107,26,0.2) 0%, transparent 70%);
+  }
+  .hero-label { font-size: 0.75rem; color: var(--gray); font-weight: 600; margin-bottom: 0.5rem; }
+  .hero-value { font-size: 2.5rem; font-weight: 900; color: var(--white); line-height: 1; }
+  .hero-sub { font-size: 0.8rem; color: var(--orange); font-weight: 700; margin-top: 0.5rem; }
+
+  /* Attendance Row */
+  .att-item {
+    background: var(--card2);
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .att-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+  .att-subject { font-size: 0.875rem; font-weight: 700; color: var(--white); }
+  .att-pct { font-size: 1rem; font-weight: 900; }
+  .att-meta { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.625rem; }
+  .progress { background: rgba(255,255,255,0.08); border-radius: 2rem; height: 6px; overflow: hidden; }
+  .progress-bar { height: 100%; border-radius: 2rem; transition: width 0.5s ease; }
+
+  /* Form Elements */
+  .form-section { margin-bottom: 1.25rem; }
+  .form-lbl { display: block; font-size: 0.75rem; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+  .form-ctrl {
+    width: 100%;
+    background: var(--navy);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 0.875rem;
+    padding: 0.75rem 1rem;
+    color: var(--white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+  .form-ctrl:focus { outline: none; border-color: var(--orange); }
+  .form-ctrl::placeholder { color: rgba(255,255,255,0.2); font-weight: 400; }
+  .form-ctrl option { background: var(--navy2); color: var(--white); }
+
+  /* Buttons */
+  .btn-orange {
+    width: 100%;
+    background: linear-gradient(135deg, var(--orange), #e55a10);
+    color: white;
+    border: none;
+    border-radius: 0.875rem;
+    padding: 0.875rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255,107,26,0.35);
+    transition: all 0.2s;
+  }
+  .btn-orange:active { transform: scale(0.97); }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.07);
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 0.875rem;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:active { transform: scale(0.97); }
+
+  .btn-green {
+    background: linear-gradient(135deg, #00C853, #00a844);
+    color: white;
+    border: none;
+    border-radius: 0.875rem;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,200,83,0.3);
+    transition: all 0.2s;
+  }
+  .btn-red {
+    background: linear-gradient(135deg, #FF3B30, #cc2f26);
+    color: white;
+    border: none;
+    border-radius: 0.875rem;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(255,59,48,0.3);
+    transition: all 0.2s;
+  }
+  .btn-row { display: flex; gap: 0.75rem; }
+  .btn-row .btn-green, .btn-row .btn-red { flex: 1; }
+
+  /* Leave/Workload Items */
+  .list-item {
+    background: var(--card2);
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .list-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+  .list-item-title { font-size: 0.9rem; font-weight: 800; color: var(--white); }
+  .list-item-sub { font-size: 0.75rem; color: var(--gray); margin-top: 0.25rem; }
+  .status-pill {
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .pill-pending { background: rgba(255,214,0,0.15); color: #FFD600; }
+  .pill-approved { background: rgba(0,200,83,0.15); color: #00C853; }
+  .pill-submitted { background: rgba(0,200,83,0.15); color: #00C853; }
+
+  /* Schedule Item */
+  .schedule-item {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    background: var(--card2);
+    border-radius: 1rem;
+    padding: 0.875rem 1rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .schedule-time {
+    background: rgba(255,107,26,0.1);
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    text-align: center;
+    min-width: 56px;
+  }
+  .schedule-time .time { font-size: 0.8rem; font-weight: 800; color: var(--orange); }
+  .schedule-time .ampm { font-size: 0.65rem; color: var(--gray); }
+  .schedule-info { flex: 1; }
+  .schedule-name { font-size: 0.875rem; font-weight: 800; color: var(--white); }
+  .schedule-room { font-size: 0.75rem; color: var(--gray); }
+
+  /* Progress Analytics */
+  .analytics-item { margin-bottom: 1.25rem; }
+  .analytics-header { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .analytics-header span:first-child { color: var(--gray); }
+  .analytics-header span:last-child { color: var(--white); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 5.5rem;
+    left: 50%; transform: translateX(-50%);
+    background: var(--card2);
+    border: 1px solid rgba(0,200,83,0.3);
+    color: var(--white);
+    padding: 0.875rem 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    z-index: 9999;
+    font-weight: 700;
+    font-size: 0.875rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    white-space: nowrap;
+  }
+  .toast-icon { width: 22px; height: 22px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .toast-icon svg { width: 13px; height: 13px; stroke: white; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Attendance Mark Row */
+  .mark-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card2);
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.625rem;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .mark-row .student-info { }
+  .mark-row .student-name { font-size: 0.875rem; font-weight: 700; color: var(--white); }
+  .mark-row .roll-no { font-size: 0.75rem; color: var(--gray); }
+  .mark-btns { display: flex; gap: 0.5rem; }
+  .mark-p, .mark-a {
+    padding: 0.35rem 0.875rem;
+    border-radius: 0.625rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+  }
+  .mark-p { background: rgba(0,200,83,0.15); color: var(--green); }
+  .mark-p.selected { background: var(--green); color: white; }
+  .mark-a { background: rgba(255,59,48,0.12); color: var(--red); }
+  .mark-a.selected { background: var(--red); color: white; }
+</style>
 </head>
 <body>
-    <!-- Login Page -->
-    <div id="loginPage" class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <svg viewBox="0 0 24 24">
-                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg>
-                <h1>Digital Campus</h1>
-                <p>Management Platform</p>
-            </div>
-            
-            <div class="login-form">
-                <div class="form-group">
-                    <label class="form-label">Login As</label>
-                    <div class="role-buttons">
-                        <button class="role-btn active" data-role="student">Student</button>
-                        <button class="role-btn" data-role="faculty">Faculty</button>
-                        <button class="role-btn" data-role="admin">Admin</button>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-label">Username</label>
-                    <input type="text" id="username" class="form-input" placeholder="Enter username">
-                </div>
+<!-- ====== LOGIN ====== -->
+<div id="loginPage">
+  <div class="login-logo">
+    <div class="logo-ring">
+      <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    </div>
+    <h1>DigiCampus</h1>
+    <p>Paperless Education</p>
+  </div>
 
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" id="password" class="form-input" placeholder="Enter password">
-                </div>
-
-                <button id="loginBtn" class="login-btn">Login</button>
-
-                <div class="credentials-box">
-                    <p>Demo Credentials:</p>
-                    <p><span>Student:</span> student / student123</p>
-                    <p><span>Faculty:</span> faculty / faculty123</p>
-                    <p><span>Admin:</span> admin / admin123</p>
-                </div>
-            </div>
-        </div>
+  <div class="login-card">
+    <div class="role-tabs">
+      <button class="role-tab active" data-role="student">Student</button>
+      <button class="role-tab" data-role="faculty">Faculty</button>
+      <button class="role-tab" data-role="admin">Admin</button>
     </div>
 
-    <!-- Main App -->
-    <div id="mainApp" class="hidden">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-content">
-                <div class="header-left">
-                    <svg viewBox="0 0 24 24" style="width: 2rem; height: 2rem;">
-                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                    </svg>
-                    <div class="header-title">
-                        <h1>Digital Campus Management</h1>
-                        <p>Paperless Education Platform</p>
-                    </div>
-                </div>
-                <div class="header-right">
-                    <div class="user-info">
-                        <p id="userName">User Name</p>
-                        <p id="userRole">Role</p>
-                    </div>
-                    <button id="logoutBtn" class="logout-btn">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                            <polyline points="16 17 21 12 16 7"></polyline>
-                            <line x1="21" y1="12" x2="9" y2="12"></line>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Role Switcher -->
-        <div class="role-switcher">
-            <div class="role-switcher-content">
-                <span>Switch Role (Demo):</span>
-                <button class="role-switch-btn active" data-switch="student">Student</button>
-                <button class="role-switch-btn" data-switch="faculty">Faculty</button>
-                <button class="role-switch-btn" data-switch="admin">Admin</button>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="navigation">
-            <div class="nav-content">
-                <button class="nav-btn active" data-view="dashboard">
-                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-                    Dashboard
-                </button>
-                <button class="nav-btn" data-view="notices">
-                    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                    Notices
-                </button>
-                <button class="nav-btn" data-view="attendance">
-                    <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    Attendance
-                </button>
-                <button class="nav-btn" data-view="leave" id="navLeave">
-                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    Leave
-                </button>
-                <button class="nav-btn" data-view="workload" id="navWorkload">
-                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                    <span id="workloadLabel">Assignments</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <div id="contentArea"></div>
-        </div>
-
-        <!-- Toast Notification -->
-        <div id="toast" class="toast hidden">
-            <svg viewBox="0 0 24 24">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-            <span>Action completed successfully!</span>
-        </div>
+    <div class="input-group">
+      <label class="input-label">Username</label>
+      <div class="input-wrap">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <input type="text" id="loginUser" class="input-field" placeholder="Enter your username">
+      </div>
     </div>
 
-    <script>
-        // Application State
-        let currentUser = 'student';
-        let currentView = 'dashboard';
-        let selectedRole = 'student';
+    <div class="input-group">
+      <label class="input-label">Password</label>
+      <div class="input-wrap">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <input type="password" id="loginPass" class="input-field" placeholder="Enter your password">
+      </div>
+    </div>
 
-        // Demo Credentials
-        const credentials = {
-            student: { username: 'student', password: 'student123', name: 'Rajesh Verma' },
-            faculty: { username: 'faculty', password: 'faculty123', name: 'Dr. Anjali Mehta' },
-            admin: { username: 'admin', password: 'admin123', name: 'Suresh Patel' }
-        };
+    <button class="login-btn" id="loginBtn">Login Securely →</button>
 
-        // Sample Data
-        const notices = [
-            { id: 1, title: 'Mid-Term Exam Schedule Released', category: 'Exam', date: '2024-02-15', content: 'The mid-term examination schedule has been published.' },
-            { id: 2, title: 'Annual Tech Fest Registration Open', category: 'Events', date: '2024-02-14', content: 'Register now for the annual tech fest.' },
-            { id: 3, title: 'Library Timing Extended', category: 'Academic', date: '2024-02-13', content: 'Library will remain open till 10 PM during exam season.' },
-            { id: 4, title: 'Career Counseling Session', category: 'Events', date: '2024-02-12', content: 'Industry experts will conduct career counseling sessions.' }
-        ];
+    <div class="creds-box">
+      <p>🔑 Demo Credentials</p>
+      <div class="cred-row"><span>Student</span><span>student / student123</span></div>
+      <div class="cred-row"><span>Faculty</span><span>faculty / faculty123</span></div>
+      <div class="cred-row"><span>Admin</span><span>admin / admin123</span></div>
+    </div>
+  </div>
+</div>
 
-        const studentAttendance = [
-            { subject: 'Data Structures', present: 28, total: 32, percentage: 87.5 },
-            { subject: 'Database Management', present: 30, total: 32, percentage: 93.8 },
-            { subject: 'Web Development', present: 25, total: 30, percentage: 83.3 },
-            { subject: 'Operating Systems', present: 29, total: 32, percentage: 90.6 }
-        ];
+<!-- ====== MAIN APP ====== -->
+<div id="mainApp" class="hidden">
 
-        // Login Functionality
-        document.querySelectorAll('.role-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                selectedRole = btn.dataset.role;
-            });
-        });
+  <!-- Header -->
+  <div class="app-header">
+    <div class="app-header-left">
+      <div class="app-header-avatar" id="headerAvatar">R</div>
+      <div class="app-header-info">
+        <h3 id="headerName">Rajesh Verma</h3>
+        <p id="headerRole">Student</p>
+      </div>
+    </div>
+    <div class="app-header-right">
+      <button class="icon-btn">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <button class="icon-btn" id="logoutBtn">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
 
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const creds = credentials[selectedRole];
+  <!-- Role Strip -->
+  <div class="role-strip">
+    <span>Demo:</span>
+    <button class="strip-btn active" data-switch="student">Student</button>
+    <button class="strip-btn" data-switch="faculty">Faculty</button>
+    <button class="strip-btn" data-switch="admin">Admin</button>
+  </div>
 
-            if (username === creds.username && password === creds.password) {
-                currentUser = selectedRole;
-                document.getElementById('loginPage').classList.add('hidden');
-                document.getElementById('mainApp').classList.remove('hidden');
-                updateUserInfo();
-                updateNavigation();
-                renderView('dashboard');
-            } else {
-                alert('Invalid credentials! Try:\nStudent: student/student123\nFaculty: faculty/faculty123\nAdmin: admin/admin123');
-            }
-        });
+  <!-- Content -->
+  <div class="content" id="contentArea"></div>
 
-        // Logout Functionality
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            document.getElementById('mainApp').classList.add('hidden');
-            document.getElementById('loginPage').classList.remove('hidden');
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-        });
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <button class="nav-item active" data-view="dashboard">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-item" data-view="notices">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <span class="nav-label">Notices</span>
+    </button>
+    <button class="nav-item" data-view="attendance">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <span class="nav-label">Attend</span>
+    </button>
+    <button class="nav-item" data-view="leave" id="navLeave">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <span class="nav-label">Leave</span>
+    </button>
+    <button class="nav-item" data-view="workload" id="navWork">
+      <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+      <span class="nav-label" id="workLabel">Assign</span>
+    </button>
+  </div>
 
-        // Role Switcher
-        document.querySelectorAll('.role-switch-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.role-switch-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentUser = btn.dataset.switch;
-                updateUserInfo();
-                updateNavigation();
-                renderView('dashboard');
-            });
-        });
+  <!-- Toast -->
+  <div id="toast" class="toast hidden">
+    <div class="toast-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <span id="toastMsg">Done successfully!</span>
+  </div>
+</div>
 
-        // Navigation
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentView = btn.dataset.view;
-                renderView(currentView);
-            });
-        });
+<script>
+  let currentUser = 'student';
+  let selectedRole = 'student';
 
-        function updateUserInfo() {
-            document.getElementById('userName').textContent = credentials[currentUser].name;
-            document.getElementById('userRole').textContent = currentUser.charAt(0).toUpperCase() + currentUser.slice(1);
-            
-            // Update role switcher
-            document.querySelectorAll('.role-switch-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.switch === currentUser);
-            });
-        }
+  const users = {
+    student: { username: 'student', password: 'student123', name: 'Rajesh Verma', initial: 'R' },
+    faculty: { username: 'faculty', password: 'faculty123', name: 'Dr. Anjali Mehta', initial: 'A' },
+    admin:   { username: 'admin',   password: 'admin123',   name: 'Suresh Patel', initial: 'S' }
+  };
 
-        function updateNavigation() {
-            // Show/hide navigation items based on role
-            const navLeave = document.getElementById('navLeave');
-            const navWorkload = document.getElementById('navWorkload');
-            
-            if (currentUser === 'admin') {
-                navLeave.classList.add('hidden');
-                navWorkload.classList.add('hidden');
-            } else {
-                navLeave.classList.remove('hidden');
-                navWorkload.classList.remove('hidden');
-                document.getElementById('workloadLabel').textContent = currentUser === 'student' ? 'Assignments' : 'Workload';
-            }
-        }
+  const notices = [
+    { title: 'Mid-Term Exam Schedule', category: 'Exam', date: '15 Feb 2024', author: 'Exam Cell' },
+    { title: 'Annual Tech Fest Open', category: 'Events', date: '14 Feb 2024', author: 'Student Council' },
+    { title: 'Library Timing Extended', category: 'Academic', date: '13 Feb 2024', author: 'Library Dept' },
+    { title: 'Career Counseling Session', category: 'Events', date: '12 Feb 2024', author: 'Placement Cell' }
+  ];
 
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3000);
-        }
+  const attendance = [
+    { subject: 'Data Structures', present: 28, total: 32, pct: 87.5 },
+    { subject: 'Database Management', present: 30, total: 32, pct: 93.8 },
+    { subject: 'Web Development', present: 25, total: 30, pct: 83.3 },
+    { subject: 'Operating Systems', present: 29, total: 32, pct: 90.6 }
+  ];
 
-        function renderView(view) {
-            const content = document.getElementById('contentArea');
-            
-            if (view === 'dashboard') {
-                content.innerHTML = renderDashboard();
-            } else if (view === 'notices') {
-                content.innerHTML = renderNotices();
-            } else if (view === 'attendance') {
-                content.innerHTML = renderAttendance();
-            } else if (view === 'leave') {
-                content.innerHTML = renderLeave();
-            } else if (view === 'workload') {
-                content.innerHTML = renderWorkload();
-            }
-        }
+  const leaves = [
+    { name: 'Priya Singh', type: 'Family Function', from: '15 Feb', to: '16 Feb', status: 'Pending' },
+    { name: 'Amit Kumar', type: 'Personal', from: '18 Feb', to: '19 Feb', status: 'Pending' },
+    { name: 'Rahul Sharma', type: 'Medical', from: '10 Feb', to: '12 Feb', status: 'Approved' }
+  ];
 
-        function renderDashboard() {
-            if (currentUser === 'student') {
-                return `
-                    <div class="stats-grid">
-                        <div class="stat-card" style="--from: #3b82f6; --to: #2563eb;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">Overall Attendance</p>
-                                    <p class="stat-value">88.8%</p>
-                                </div>
-                                <svg viewBox="0 0 24 24" style="width: 3rem; height: 3rem; opacity: 0.8;">
-                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="stat-card" style="--from: #10b981; --to: #059669;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">Pending Assignments</p>
-                                    <p class="stat-value">2</p>
-                                </div>
-                                <svg viewBox="0 0 24 24" style="width: 3rem; height: 3rem; opacity: 0.8;">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="stat-card" style="--from: #a855f7; --to: #9333ea;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">New Notices</p>
-                                    <p class="stat-value">4</p>
-                                </div>
-                                <svg viewBox="0 0 24 24" style="width: 3rem; height: 3rem; opacity: 0.8;">
-                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card mb-6">
-                        <h3 class="font-semibold mb-4" style="font-size: 1.125rem;">Recent Notices</h3>
-                        ${notices.slice(0, 3).map(n => `
-                            <div class="notice-item">
-                                <div class="notice-header">
-                                    <h4 class="notice-title">${n.title}</h4>
-                                    <span class="notice-badge badge-${n.category.toLowerCase()}">${n.category}</span>
-                                </div>
-                                <p class="notice-date">${n.date}</p>
-                            </div>
-                        `).join('')}
-                    </div>
+  const assignments = [
+    { title: 'Data Structures Assignment 3', subject: 'Data Structures', due: '20 Feb', status: 'Pending', desc: 'Implement Binary Search Tree with all operations' },
+    { title: 'DBMS Project Report', subject: 'Database Management', due: '25 Feb', status: 'Submitted', desc: 'Complete project documentation and ER diagrams' },
+    { title: 'Web Dev Portfolio', subject: 'Web Development', due: '28 Feb', status: 'Pending', desc: 'Create a responsive portfolio website' }
+  ];
 
-                    <div class="card">
-                        <h3 class="font-semibold mb-4" style="font-size: 1.125rem;">Quick Actions</h3>
-                        <div class="grid-2">
-                            <div class="quick-action" style="border-color: #bfdbfe; background-color: #eff6ff;" onclick="renderView('attendance')">
-                                <svg viewBox="0 0 24 24" style="color: #2563eb;">
-                                    <polyline points="9 11 12 14 22 4"></polyline>
-                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                                </svg>
-                                <span class="font-semibold">View Attendance</span>
-                            </div>
-                            <div class="quick-action" style="border-color: #bbf7d0; background-color: #f0fdf4;" onclick="renderView('leave')">
-                                <svg viewBox="0 0 24 24" style="color: #16a34a;">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                </svg>
-                                <span class="font-semibold">Apply Leave</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else if (currentUser === 'faculty') {
-                return `
-                    <div class="stats-grid">
-                        <div class="stat-card" style="--from: #6366f1; --to: #4f46e5;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">Classes Today</p>
-                                    <p class="stat-value">3</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stat-card" style="--from: #f97316; --to: #ea580c;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">Pending Leave Requests</p>
-                                    <p class="stat-value">2</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stat-card" style="--from: #14b8a6; --to: #0d9488;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">Total Students</p>
-                                    <p class="stat-value">138</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  // ---- LOGIN ----
+  document.querySelectorAll('.role-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedRole = btn.dataset.role;
+    });
+  });
 
-                    <div class="card">
-                        <h3 class="font-semibold mb-4" style="font-size: 1.125rem;">Today's Schedule</h3>
-                        <div class="notice-item" style="background-color: #eff6ff;">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <h4 class="font-semibold">Data Structures - CSE-3A</h4>
-                                    <p class="text-sm text-gray-600">9:00 AM - 10:00 AM • Room 301</p>
-                                </div>
-                                <button class="btn btn-primary" onclick="renderView('attendance')">Mark Attendance</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                return `
-                    <div class="grid-4">
-                        <div class="stat-card" style="--from: #3b82f6; --to: #2563eb;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">Total Students</p>
-                                    <p class="stat-value">2,847</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stat-card" style="--from: #10b981; --to: #059669;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">Faculty Members</p>
-                                    <p class="stat-value">187</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stat-card" style="--from: #a855f7; --to: #9333ea;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">Active Notices</p>
-                                    <p class="stat-value">24</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stat-card" style="--from: #f97316; --to: #ea580c;">
-                            <div class="stat-card-content">
-                                <div>
-                                    <p class="stat-label">Paper Saved</p>
-                                    <p class="stat-value">62%</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  document.getElementById('loginBtn').addEventListener('click', doLogin);
+  document.getElementById('loginUser').addEventListener('keydown', e => e.key === 'Enter' && doLogin());
+  document.getElementById('loginPass').addEventListener('keydown', e => e.key === 'Enter' && doLogin());
 
-                    <div class="card mt-6">
-                        <h3 class="font-semibold mb-4" style="font-size: 1.125rem;">System Usage Analytics</h3>
-                        <div class="mb-4">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                <span class="text-sm">Monthly Active Users</span>
-                                <span class="text-sm font-semibold">2,134 / 3,034 (70.3%)</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 70.3%; background-color: #2563eb;"></div>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                <span class="text-sm">Digital Notices Published</span>
-                                <span class="text-sm font-semibold">96 / 120 (80%)</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 80%; background-color: #16a34a;"></div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
+  function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value.trim();
+    const c = users[selectedRole];
+    if (u === c.username && p === c.password) {
+      currentUser = selectedRole;
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('mainApp').classList.remove('hidden');
+      setUser(currentUser);
+      goTo('dashboard');
+    } else {
+      document.getElementById('loginUser').style.borderColor = '#FF3B30';
+      document.getElementById('loginPass').style.borderColor = '#FF3B30';
+      setTimeout(() => {
+        document.getElementById('loginUser').style.borderColor = '';
+        document.getElementById('loginPass').style.borderColor = '';
+      }, 1500);
+    }
+  }
 
-        function renderNotices() {
-            return `
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h2 style="font-size: 1.5rem; font-weight: bold;">Notices & Circulars</h2>
-                    ${currentUser !== 'student' ? '<button class="btn btn-primary">Post New Notice</button>' : ''}
-                </div>
+  // ---- LOGOUT ----
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    document.getElementById('mainApp').classList.add('hidden');
+    document.getElementById('loginPage').classList.remove('hidden');
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+  });
 
-                <div class="card">
-                    ${notices.map(n => `
-                        <div class="notice-item">
-                            <div class="notice-header">
-                                <h4 class="notice-title">${n.title}</h4>
-                                <span class="notice-badge badge-${n.category.toLowerCase()}">${n.category}</span>
-                            </div>
-                            <p class="notice-date">Posted on ${n.date}</p>
-                            <p class="mt-2 text-gray-700">${n.content}</p>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
+  // ---- ROLE SWITCH ----
+  document.querySelectorAll('.strip-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.strip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentUser = btn.dataset.switch;
+      setUser(currentUser);
+      goTo('dashboard');
+    });
+  });
 
-        function renderAttendance() {
-            if (currentUser === 'student') {
-                return `
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <h2 style="font-size: 1.5rem; font-weight: bold;">My Attendance</h2>
-                        <button class="btn btn-primary">Download Report</button>
-                    </div>
+  // ---- BOTTOM NAV ----
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      goTo(btn.dataset.view);
+    });
+  });
 
-                    <div class="card">
-                        <div class="text-center mb-6">
-                            <p class="text-sm text-gray-600">Overall Attendance</p>
-                            <p style="font-size: 3rem; font-weight: bold; color: #2563eb; margin-top: 0.5rem;">88.8%</p>
-                            <p class="text-sm text-gray-500">112 / 126 classes attended</p>
-                        </div>
+  function setUser(role) {
+    const u = users[role];
+    document.getElementById('headerName').textContent = u.name;
+    document.getElementById('headerRole').textContent = role.charAt(0).toUpperCase() + role.slice(1);
+    document.getElementById('headerAvatar').textContent = u.initial;
+    document.querySelectorAll('.strip-btn').forEach(b => b.classList.toggle('active', b.dataset.switch === role));
+    const isAdmin = role === 'admin';
+    document.getElementById('navLeave').classList.toggle('hidden', isAdmin);
+    document.getElementById('navWork').classList.toggle('hidden', isAdmin);
+    document.getElementById('workLabel').textContent = role === 'student' ? 'Assign' : 'Work';
+  }
 
-                        ${studentAttendance.map(s => `
-                            <div class="attendance-item">
-                                <div class="attendance-header">
-                                    <h4 class="font-semibold">${s.subject}</h4>
-                                    <span class="attendance-percentage" style="color: ${s.percentage >= 85 ? '#16a34a' : s.percentage >= 75 ? '#f97316' : '#dc2626'}">${s.percentage}%</span>
-                                </div>
-                                <p class="text-sm text-gray-600 mb-2">${s.present} / ${s.total} classes</p>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: ${s.percentage}%; background-color: ${s.percentage >= 85 ? '#16a34a' : s.percentage >= 75 ? '#f97316' : '#dc2626'}"></div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            } else {
-                return `
-                    <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Mark Attendance</h2>
-                    <div class="card">
-                        <p class="text-center text-gray-600">Select a class to mark attendance</p>
-                        <button class="btn btn-primary mt-4" onclick="showToast()" style="margin: 1rem auto; display: block;">Submit Attendance</button>
-                    </div>
-                `;
-            }
-        }
+  function goTo(view) {
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+    const area = document.getElementById('contentArea');
+    area.innerHTML = getView(view);
+    attachHandlers();
+  }
 
-        function renderLeave() {
-            if (currentUser === 'student') {
-                return `
-                    <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Leave Application</h2>
-                    <div class="card">
-                        <h3 class="font-semibold mb-4">Apply for Leave</h3>
-                        <div class="form-group">
-                            <label class="form-label">Leave Type</label>
-                            <select class="form-input">
-                                <option>Select type...</option>
-                                <option>Medical</option>
-                                <option>Personal</option>
-                                <option>Family Function</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Reason</label>
-                            <textarea class="form-input" rows="4" placeholder="Explain the reason for leave..."></textarea>
-                        </div>
-                        <button class="btn btn-primary" onclick="showToast()">Submit Application</button>
-                    </div>
-                `;
-            } else {
-                return `
-                    <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Leave Requests</h2>
-                    <div class="card">
-                        <div class="notice-item">
-                            <div style="margin-bottom: 1rem;">
-                                <h4 class="font-semibold">Priya Singh</h4>
-                                <p class="text-sm text-gray-600">2024-02-15 to 2024-02-16</p>
-                                <p class="text-sm text-gray-500 mt-1">Reason: Family Function</p>
-                            </div>
-                            <div style="display: flex; gap: 0.75rem;">
-                                <button class="btn btn-green" style="flex: 1;" onclick="showToast()">Approve</button>
-                                <button class="btn btn-red" style="flex: 1;" onclick="showToast()">Reject</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
+  function showToast(msg = 'Action completed successfully!') {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.remove('hidden');
+    setTimeout(() => t.classList.add('hidden'), 3000);
+  }
 
-        function renderWorkload() {
-            if (currentUser === 'student') {
-                return `
-                    <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">My Assignments</h2>
-                    <div class="card" style="border-left: 4px solid #f97316; margin-bottom: 1rem;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                            <div>
-                                <h4 class="font-semibold">Data Structures Assignment 3</h4>
-                                <p class="text-sm text-gray-600 mt-1">Data Structures</p>
-                                <p class="text-sm text-gray-700 mt-2">Implement Binary Search Tree with all operations</p>
-                            </div>
-                            <span class="notice-badge" style="background-color: #fed7aa; color: #9a3412; height: fit-content;">Pending</span>
-                        </div>
-                        <button class="btn btn-primary">Submit Work</button>
-                    </div>
-                    <div class="card" style="border-left: 4px solid #16a34a;">
-                        <div style="display: flex; justify-content: space-between;">
-                            <div>
-                                <h4 class="font-semibold">DBMS Project Report</h4>
-                                <p class="text-sm text-gray-600 mt-1">Database Management</p>
-                            </div>
-                            <span class="notice-badge badge-academic">Submitted</span>
-                        </div>
-                    </div>
-                `;
-            } else {
-                return `
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <h2 style="font-size: 1.5rem; font-weight: bold;">Manage Assignments</h2>
-                        <button class="btn btn-primary">Create New Assignment</button>
-                    </div>
-                    <div class="card">
-                        <h3 class="font-semibold mb-4">Active Assignments</h3>
-                        <div class="notice-item">
-                            <h4 class="font-semibold">Data Structures Assignment 3</h4>
-                            <p class="text-sm text-gray-600">Data Structures • Due: 2024-02-20</p>
-                            <div class="text-sm text-gray-600 mt-2">
-                                <span>45 students assigned</span> • 
-                                <span style="color: #16a34a;">15 submitted</span> • 
-                                <span style="color: #f97316;">30 pending</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
+  function getView(view) {
+    if (view === 'dashboard') return getDashboard();
+    if (view === 'notices')   return getNotices();
+    if (view === 'attendance') return getAttendance();
+    if (view === 'leave')     return getLeave();
+    if (view === 'workload')  return getWorkload();
+    return '';
+  }
 
-        // Initialize on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            // Focus on username input
-            document.getElementById('username').focus();
-        });
-    </script>
+  // ---- DASHBOARD ----
+  function getDashboard() {
+    if (currentUser === 'student') return `
+      <div class="hero-card">
+        <p class="hero-label">Overall Attendance</p>
+        <p class="hero-value">88.8%</p>
+        <p class="hero-sub">112 / 126 classes attended</p>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card" style="--accent-color:rgba(255,59,48,0.12); --accent-stroke:#FF3B30;">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
+          <p class="stat-value">2</p>
+          <p class="stat-label">Pending Tasks</p>
+        </div>
+        <div class="stat-card" style="--accent-color:rgba(0,200,83,0.12); --accent-stroke:#00C853;">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div>
+          <p class="stat-value">4</p>
+          <p class="stat-label">New Notices</p>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-header">
+          <p class="section-title">Quick Access</p>
+        </div>
+        <div class="quick-grid">
+          <button class="quick-btn" onclick="goTo('attendance')">
+            <div class="quick-icon" style="background:rgba(0,200,83,0.12);">
+              <svg viewBox="0 0 24 24" style="stroke:#00C853;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <span class="quick-label">Attendance</span>
+          </button>
+          <button class="quick-btn" onclick="goTo('leave')">
+            <div class="quick-icon" style="background:rgba(255,214,0,0.12);">
+              <svg viewBox="0 0 24 24" style="stroke:#FFD600;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <span class="quick-label">Apply Leave</span>
+          </button>
+          <button class="quick-btn" onclick="goTo('workload')">
+            <div class="quick-icon" style="background:rgba(255,107,26,0.12);">
+              <svg viewBox="0 0 24 24" style="stroke:var(--orange);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+            </div>
+            <span class="quick-label">Assignments</span>
+          </button>
+          <button class="quick-btn" onclick="goTo('notices')">
+            <div class="quick-icon" style="background:rgba(99,102,241,0.15);">
+              <svg viewBox="0 0 24 24" style="stroke:#818cf8;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
+            </div>
+            <span class="quick-label">Notices</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-header">
+          <p class="section-title">Latest Notices</p>
+          <button class="see-all" onclick="goTo('notices')">See All</button>
+        </div>
+        ${notices.slice(0,3).map(n => noticeRow(n)).join('')}
+      </div>`;
+
+    if (currentUser === 'faculty') return `
+      <div class="stats-row three">
+        <div class="stat-card" style="--accent-color:rgba(255,107,26,0.12); --accent-stroke:var(--orange);">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <p class="stat-value">3</p><p class="stat-label">Classes Today</p>
+        </div>
+        <div class="stat-card" style="--accent-color:rgba(255,59,48,0.12); --accent-stroke:#FF3B30;">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div>
+          <p class="stat-value">2</p><p class="stat-label">Leave Requests</p>
+        </div>
+        <div class="stat-card" style="--accent-color:rgba(0,200,83,0.12); --accent-stroke:#00C853;">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <p class="stat-value">138</p><p class="stat-label">Students</p>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-header"><p class="section-title">Today's Schedule</p></div>
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="time">9:00</div><div class="ampm">AM</div></div>
+          <div class="schedule-info"><p class="schedule-name">Data Structures - CSE-3A</p><p class="schedule-room">Room 301</p></div>
+          <button class="btn-ghost" style="padding:0.4rem 0.75rem;font-size:0.75rem;" onclick="goTo('attendance')">Mark</button>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="time">11:00</div><div class="ampm">AM</div></div>
+          <div class="schedule-info"><p class="schedule-name">Database Mgmt - CSE-3B</p><p class="schedule-room">Room 302</p></div>
+          <span class="status-pill pill-pending" style="font-size:0.7rem;">Upcoming</span>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time"><div class="time">2:00</div><div class="ampm">PM</div></div>
+          <div class="schedule-info"><p class="schedule-name">Web Dev - CSE-3A</p><p class="schedule-room">Lab 1</p></div>
+          <span class="status-pill pill-pending" style="font-size:0.7rem;">Upcoming</span>
+        </div>
+      </div>`;
+
+    // Admin
+    return `
+      <div class="stats-row four">
+        <div class="stat-card" style="--accent-color:rgba(255,107,26,0.12); --accent-stroke:var(--orange);">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <p class="stat-value">2,847</p><p class="stat-label">Students</p>
+        </div>
+        <div class="stat-card" style="--accent-color:rgba(0,200,83,0.12); --accent-stroke:#00C853;">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+          <p class="stat-value">187</p><p class="stat-label">Faculty</p>
+        </div>
+        <div class="stat-card" style="--accent-color:rgba(99,102,241,0.15); --accent-stroke:#818cf8;">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div>
+          <p class="stat-value">24</p><p class="stat-label">Notices</p>
+        </div>
+        <div class="stat-card" style="--accent-color:rgba(255,214,0,0.12); --accent-stroke:#FFD600;">
+          <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
+          <p class="stat-value">62%</p><p class="stat-label">Paper Saved</p>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-header"><p class="section-title">Platform Analytics</p></div>
+        <div class="analytics-item">
+          <div class="analytics-header"><span>Monthly Active Users</span><span>2,134 / 3,034 — 70.3%</span></div>
+          <div class="progress"><div class="progress-bar" style="width:70.3%;background:var(--orange);"></div></div>
+        </div>
+        <div class="analytics-item">
+          <div class="analytics-header"><span>Digital Notices Published</span><span>96 / 120 — 80%</span></div>
+          <div class="progress"><div class="progress-bar" style="width:80%;background:var(--green);"></div></div>
+        </div>
+        <div class="analytics-item">
+          <div class="analytics-header"><span>Digital Attendance</span><span>163 / 210 — 77.6%</span></div>
+          <div class="progress"><div class="progress-bar" style="width:77.6%;background:#818cf8;"></div></div>
+        </div>
+        <div class="analytics-item">
+          <div class="analytics-header"><span>Leave Processing Time</span><span>50% reduction</span></div>
+          <div class="progress"><div class="progress-bar" style="width:50%;background:var(--yellow);"></div></div>
+        </div>
+      </div>`;
+  }
+
+  function noticeRow(n) {
+    const cls = { Exam: 'dot-exam nb-exam', Events: 'dot-events nb-events', Academic: 'dot-academic nb-academic' }[n.category] || 'dot-academic nb-academic';
+    const [dotCls, badgeCls] = cls.split(' ');
+    const emojis = { Exam: '📋', Events: '🎉', Academic: '📚' };
+    return `<div class="notice-item">
+      <div class="notice-dot ${dotCls}">${emojis[n.category] || '📌'}</div>
+      <div class="notice-info">
+        <p class="notice-name">${n.title}</p>
+        <p class="notice-meta">${n.author} · ${n.date}</p>
+      </div>
+      <span class="notice-badge ${badgeCls}">${n.category}</span>
+    </div>`;
+  }
+
+  // ---- NOTICES ----
+  function getNotices() {
+    const postBtn = currentUser !== 'student' ? `<button class="btn-orange" style="margin-bottom:1rem;" onclick="showToast('Notice posted successfully!')">+ Post New Notice</button>` : '';
+    return `
+      <div class="section-header" style="margin-bottom:0.5rem;">
+        <p class="page-title">Notices</p>
+      </div>
+      ${postBtn}
+      <div style="display:flex;gap:0.5rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:0.25rem;">
+        <button class="strip-btn active" style="border-radius:2rem;">All</button>
+        <button class="strip-btn" style="border-radius:2rem;">Exam</button>
+        <button class="strip-btn" style="border-radius:2rem;">Events</button>
+        <button class="strip-btn" style="border-radius:2rem;">Academic</button>
+      </div>
+      <div class="section-card">
+        ${notices.map(n => noticeRow(n)).join('')}
+      </div>`;
+  }
+
+  // ---- ATTENDANCE ----
+  function getAttendance() {
+    if (currentUser === 'student') return `
+      <p class="page-title">My Attendance</p>
+      <div class="hero-card">
+        <p class="hero-label">Overall Attendance</p>
+        <p class="hero-value">88.8%</p>
+        <p class="hero-sub">112 / 126 classes · Semester 6</p>
+      </div>
+      ${attendance.map(a => {
+        const color = a.pct >= 85 ? 'var(--green)' : a.pct >= 75 ? 'var(--yellow)' : 'var(--red)';
+        return `<div class="att-item">
+          <div class="att-header">
+            <span class="att-subject">${a.subject}</span>
+            <span class="att-pct" style="color:${color}">${a.pct}%</span>
+          </div>
+          <p class="att-meta">${a.present} / ${a.total} classes attended</p>
+          <div class="progress"><div class="progress-bar" style="width:${a.pct}%;background:${color};"></div></div>
+        </div>`;
+      }).join('')}
+      <button class="btn-orange" onclick="showToast('Attendance report downloaded!')">⬇ Download PDF Report</button>`;
+
+    return `
+      <p class="page-title">Mark Attendance</p>
+      <div class="section-card">
+        <div class="form-section">
+          <label class="form-lbl">Select Class</label>
+          <select class="form-ctrl" id="classSelect" onchange="renderStudents()">
+            <option value="">Choose a class...</option>
+            <option>CSE-3A — Data Structures</option>
+            <option>CSE-3B — Database Management</option>
+            <option>CSE-3A — Web Development</option>
+          </select>
+        </div>
+        <div class="form-section">
+          <label class="form-lbl">Date</label>
+          <input type="date" class="form-ctrl" value="2024-02-16">
+        </div>
+        <div id="studentsList"></div>
+        <div id="submitAttBtn"></div>
+      </div>`;
+  }
+
+  function renderStudents() {
+    const sel = document.getElementById('classSelect');
+    if (!sel || !sel.value) return;
+    const names = ['Aarav Sharma','Priya Singh','Rohit Patel','Neha Gupta','Kiran Kumar','Sneha Reddy','Arjun Nair','Pooja Verma'];
+    document.getElementById('studentsList').innerHTML = `
+      <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
+        <button class="btn-green" style="flex:1;padding:0.5rem;" onclick="showToast('All marked Present!')">✓ All Present</button>
+        <button class="btn-ghost" style="flex:1;padding:0.5rem;" onclick="showToast('All marked Absent!')">✗ All Absent</button>
+      </div>
+      ${names.map((n,i) => `
+        <div class="mark-row">
+          <div class="student-info">
+            <div class="student-name">${n}</div>
+            <div class="roll-no">Roll: 21010${i+1}</div>
+          </div>
+          <div class="mark-btns">
+            <button class="mark-p" onclick="toggleMark(this,'p')">P</button>
+            <button class="mark-a" onclick="toggleMark(this,'a')">A</button>
+          </div>
+        </div>`).join('')}`;
+    document.getElementById('submitAttBtn').innerHTML = `<button class="btn-orange" style="margin-top:1rem;" onclick="showToast('Attendance submitted!')">Submit Attendance</button>`;
+  }
+
+  function toggleMark(btn, type) {
+    const row = btn.closest('.mark-btns');
+    row.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  // ---- LEAVE ----
+  function getLeave() {
+    if (currentUser === 'student') return `
+      <p class="page-title">Leave Application</p>
+      <div class="section-card">
+        <p class="section-title" style="margin-bottom:1rem;">Apply for Leave</p>
+        <div class="form-section">
+          <label class="form-lbl">Leave Type</label>
+          <select class="form-ctrl">
+            <option>Select type...</option>
+            <option>Medical</option>
+            <option>Personal</option>
+            <option>Family Function</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;" class="form-section">
+          <div>
+            <label class="form-lbl">From Date</label>
+            <input type="date" class="form-ctrl">
+          </div>
+          <div>
+            <label class="form-lbl">To Date</label>
+            <input type="date" class="form-ctrl">
+          </div>
+        </div>
+        <div class="form-section">
+          <label class="form-lbl">Reason</label>
+          <textarea class="form-ctrl" rows="3" placeholder="Explain reason for leave..."></textarea>
+        </div>
+        <button class="btn-orange" onclick="showToast('Leave application submitted!')">Submit Application</button>
+      </div>
+
+      <div class="section-card">
+        <p class="section-title" style="margin-bottom:1rem;">My Leave History</p>
+        <div class="list-item">
+          <div class="list-item-header">
+            <div><p class="list-item-title">Medical Leave</p><p class="list-item-sub">Jan 15 – Jan 17, 2024</p></div>
+            <span class="status-pill pill-approved">Approved</span>
+          </div>
+          <p style="font-size:0.8rem;color:var(--gray);">Fever and cold</p>
+        </div>
+        <div class="list-item">
+          <div class="list-item-header">
+            <div><p class="list-item-title">Personal Leave</p><p class="list-item-sub">Feb 10 – Feb 10, 2024</p></div>
+            <span class="status-pill pill-pending">Pending</span>
+          </div>
+          <p style="font-size:0.8rem;color:var(--gray);">Personal work</p>
+        </div>
+      </div>`;
+
+    return `
+      <p class="page-title">Leave Requests</p>
+      ${leaves.filter(l => l.status === 'Pending').map(l => `
+        <div class="section-card" style="margin-bottom:0.875rem;">
+          <div class="list-item-header" style="margin-bottom:0.75rem;">
+            <div>
+              <p class="list-item-title">${l.name}</p>
+              <p class="list-item-sub">${l.type} · ${l.from} to ${l.to}</p>
+            </div>
+            <span class="status-pill pill-pending">${l.status}</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn-green" onclick="showToast('Leave approved for ${l.name}!')">✓ Approve</button>
+            <button class="btn-red" onclick="showToast('Leave rejected!')">✗ Reject</button>
+          </div>
+        </div>`).join('')}
+      <div class="section-card">
+        <p class="section-title" style="margin-bottom:1rem;">Recently Processed</p>
+        ${leaves.filter(l => l.status === 'Approved').map(l => `
+          <div class="list-item">
+            <div class="list-item-header">
+              <div><p class="list-item-title">${l.name}</p><p class="list-item-sub">${l.type} · ${l.from} to ${l.to}</p></div>
+              <span class="status-pill pill-approved">Approved</span>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  // ---- WORKLOAD ----
+  function getWorkload() {
+    if (currentUser === 'student') return `
+      <p class="page-title">Assignments</p>
+      ${assignments.map(a => `
+        <div class="list-item" style="border-left:3px solid ${a.status === 'Pending' ? 'var(--orange)' : 'var(--green)'};margin-bottom:0.875rem;">
+          <div class="list-item-header">
+            <div style="flex:1;">
+              <p class="list-item-title">${a.title}</p>
+              <p class="list-item-sub">${a.subject} · Due: ${a.due}</p>
+              <p style="font-size:0.75rem;color:var(--gray);margin-top:0.375rem;">${a.desc}</p>
+            </div>
+            <span class="status-pill ${a.status === 'Pending' ? 'pill-pending' : 'pill-submitted'}">${a.status}</span>
+          </div>
+          ${a.status === 'Pending' ? `<button class="btn-orange" style="margin-top:0.875rem;" onclick="showToast('Assignment submitted!')">⬆ Submit Work</button>` : ''}
+        </div>`).join('')}`;
+
+    return `
+      <p class="page-title">Manage Assignments</p>
+      <div class="section-card" style="margin-bottom:1rem;">
+        <p class="section-title" style="margin-bottom:1rem;">Create New Assignment</p>
+        <div class="form-section">
+          <label class="form-lbl">Title</label>
+          <input type="text" class="form-ctrl" placeholder="Assignment title...">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;" class="form-section">
+          <div>
+            <label class="form-lbl">Subject</label>
+            <select class="form-ctrl">
+              <option>Select...</option>
+              <option>Data Structures</option>
+              <option>Database Mgmt</option>
+              <option>Web Development</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-lbl">Deadline</label>
+            <input type="date" class="form-ctrl">
+          </div>
+        </div>
+        <button class="btn-orange" onclick="showToast('Assignment published!')">Publish Assignment</button>
+      </div>
+
+      <div class="section-card">
+        <p class="section-title" style="margin-bottom:1rem;">Active Assignments</p>
+        ${assignments.map(a => `
+          <div class="list-item">
+            <div class="list-item-header">
+              <div><p class="list-item-title">${a.title}</p><p class="list-item-sub">${a.subject} · Due: ${a.due}</p></div>
+            </div>
+            <div style="display:flex;gap:1rem;font-size:0.75rem;margin-top:0.5rem;">
+              <span style="color:var(--gray);">45 assigned</span>
+              <span style="color:var(--green);">15 submitted</span>
+              <span style="color:var(--orange);">30 pending</span>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  function attachHandlers() {}
+
+  // Init
+  window.onload = () => {
+    document.getElementById('loginUser').focus();
+  };
+</script>
 </body>
 </html>
